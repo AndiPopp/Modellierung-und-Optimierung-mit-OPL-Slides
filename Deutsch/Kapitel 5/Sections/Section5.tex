@@ -1,0 +1,138 @@
+\sectionframe{Bottleneck-Zielfunktionen}
+\begin{frame}
+ \frametitle{Beispiel: Arabasta County}
+ \begin{center}\footnotesize\upshape
+  \begin{tabular}{lccc}
+   \toprule
+   \bfseries Stadt & \bfseries Konzerthalle & \bfseries Erlebnisbad & \bfseries Museum \\
+   \midrule
+   Alubarna & $1,45\,$M\$ & $1,25\,$M\$ & $1,10\,$M\$  \\
+   Nanohana & $1,00\,$M\$ & $0,95\,$M\$ & $0,90\,$M\$  \\
+   Erumalu & $0,32\,$M\$ & $0,28\,$M\$ & $0,24\,$M\$  \\
+   \bottomrule
+  \end{tabular}
+ \end{center}
+ 
+ Jede Einrichtung kann nur einmal gebaut werden. Welche Einrichtung soll in welcher Stadt gebaut werden?
+\end{frame}
+
+\subsection{Maximin- und Minimax-Probleme}
+\begin{frame}
+ \frametitle{Maximin-Probleme}
+ Mehrere gleich skalierte Einzel-Zielfunktionen $f_1, \ldots, f_N$. Die Haupt-Zielfunktion lautet:
+ \[
+  \max  \min_{n\in\{1, \ldots, N\}}f_n(\mathbf{\overline{x}})
+ \]
+ 
+ \begin{block}{Linearisierung von Maximin-Problemen}
+    Sei $z_{\min} \lessgtr0$ eine Hilfsvariable.
+    
+    \begin{equation*}
+    \begin{array}{rl}
+      \max & z_{\min}\\[1ex]
+      s.t. & f_n(\mathbf{\overline{x}}) \geq z_{\min}\quad\forall n\in\{1, \ldots, N\} \\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Minimax-Probleme}
+ Mehrere gleich skalierte Einzel-Zielfunktionen $f_1, \ldots, f_N$. Die Haupt-Zielfunktion lautet:
+ \[
+  \min  \max_{n\in\{1, \ldots, N\}}f_n(\mathbf{\overline{x}})
+ \]
+ 
+ \begin{block}{Linearisierung von Maximin-Problemen}
+    Sei $z_{\max} \lessgtr0$ eine Hilfsvariable.
+    
+    \begin{equation*}
+    \begin{array}{rl}
+      \min & z_{\max}\\[1ex]
+      s.t. & f_n(\mathbf{\overline{x}}) \leq z_{\max}\quad\forall n\in\{1, \ldots, N\} \\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{\large Modell: Maximin-Zuordnungsproblem (Variante 1)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $R$ & Menge der Ressourcen\\
+  $T$ & Menge der Aufgaben\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $p_{tr}$ & Profit bei Erfüllung von Aufgabe~$t$ durch Ressource~$r$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_{tr}$ &  Binärvariable, die angibt ob Aufgabe~$t$ durch Ressource~$r$ erfüllt wird\\
+  $p_{\min}$ & Hilfsvariable für minimalen Profit\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max 	& p_{\min} & & \\[3ex]
+	s.t. 	& \displaystyle\sum_{r\in R} x_{tr} = 1 & \quad\forall t\in T & \mathrm{(I)}\\
+		& \displaystyle\sum_{t\in T} x_{tr} \leq 1 & \quad\forall r\in R & \mathrm{(II)}\\
+		& p_{\min} \leq \displaystyle\sum_{r\in R} x_{tr}\cdot p_{tr} & \quad\forall t\in T & \mathrm{(III)}\\
+		& x_{rt} \in \{0, 1\}, p_{\min}\lessgtr0 & \quad\forall r\in R, t\in T & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\subsection{Explizite Modellierung von Maxima und Minima}
+\begin{frame}
+ \frametitle{Explizite Modellierung von Maxima und Minima}
+ \begin{block}{Explizite Modellierung von Maxima}
+ \[
+  \begin{array}{ll}
+    f_n(\mathbf{\overline{x}}) \leq z_{\max} & \quad\forall n\in\{1,\ldots, N\} \\[2ex]
+    z_{\max} - f_n(\mathbf{\overline{x}}) \leq M\cdot(1-y_n)&\quad\forall n\in\{1,\ldots, N\} \\[2ex]
+    \sum_{n=1}^N y_n = 1& 
+  \end{array}
+ \]
+ \end{block}
+ \begin{block}{Explizite Modellierung von Minima}
+ \[
+  \begin{array}{ll}
+    f_n(\mathbf{\overline{x}}) \geq z_{\min} & \quad\forall n\in\{1,\ldots, N\} \\[2ex]
+    f_n(\mathbf{\overline{x}}) - z_{\min} \leq M\cdot(1-y_n)&\quad\forall n\in\{1,\ldots, N\} \\[2ex]
+    \sum_{n=1}^N y_n = 1& 
+  \end{array}
+ \]
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{\large Modell: Maximin-Zuordnungsproblem (Variante 2)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $R$ & Menge der Ressourcen\\
+  $T$ & Menge der Aufgaben\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $p_{tr}$ & Profit bei Erfüllung von Aufgabe~$t$ durch Ressource~$r$\\
+  $M$ & Eine ausreichend große Zahl\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_{tr}$ &  Binärvariable, Aufgabe~$t$ wird durch Ressource~$r$ erfüllt\\
+  $p_{\min}$ & Hilfsvariable für minimalen Profit\\
+  $y_t$ & Binäre Auswahlvariable für Minimum\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max 	& p_{\min} & & \\[1ex]
+	s.t. 	& \displaystyle\sum_{r\in R} x_{tr} = 1 & \quad\forall t\in T & \mathrm{(I)}\\
+		& \displaystyle\sum_{t\in T} x_{tr} \leq 1 & \quad\forall r\in R & \mathrm{(II)}\\
+		& p_{\min} \leq \displaystyle\sum_{r\in R} x_{tr}\cdot p_{tr} & \quad\forall t\in T & \mathrm{(III)}\\
+		& \displaystyle\sum_{r\in R}(x_{tr}\cdot p_{tr}) - p_{\min} \leq M\cdot(1-y_t) & \quad\forall t\in T & \mathrm{(IV)}\\
+		& \displaystyle\sum_{t\in T}y_t = 1 & & \mathrm{(V)}\\ 
+		& x_{rt} \in \{0, 1\}, p_{\min}\lessgtr0 & \quad\forall r\in R, t\in T & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}

@@ -1,0 +1,47 @@
+\sectionframe{Mehrere Zielfunktionen und Pareto-Optimalität}
+\begin{frame}
+ \frametitle{Beispiel: Lewbrandt GmbH}
+ Gesamtkapazität: $120\,$h\\
+ \begin{center}\footnotesize
+  \begin{tabular}{lccccc}
+  \toprule
+  \bfseries Auftrag & \bfseries 1 & \bfseries 2 & \bfseries 3 & \bfseries 4 & \bfseries 5 \\
+  \midrule
+  Deckungsbeitrag & $150\,$k€ & $100\,$k€ & $150\,$k€ & $50\,$k€ & $70\,$k€\\
+  Umsatz & $340\,$k€ & $190\,$k€ & $220\,$k€ & $85\,$k€ & $215\,$k€ \\
+  Abwasser & $6,2\,$t & $3,5\,$t & $5,8\,$t & $2,4\,$t & $4,8\,$t \\
+  Kapazitätsverbrauch &  $65\,$h & $35\,$h & $65\,$h & $15\,$h & $25\,$h\\
+  \bottomrule
+  \end{tabular}
+ \end{center}
+ 
+ Welche Aufträge sollen gefertigt werden? \\\textrightarrow{} Rucksackproblem
+ 
+ \begin{block}{Problem}
+  Es gibt drei Zielfunktionen, damit gibt es keine eindeutige Optimallösung.
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Pareto-Optimalität}
+ \begin{block}{Definition: Pareto-Optimalität}
+  Eine Lösung heißt paretoooptimal, wenn es keine andere Lösung gibt, die in einer Zielgröße besser ist und in den anderen mindestens gleich gut. 
+ \end{block}
+ 
+ \begin{block}{Ausgewählte Lösungen des Beispiels "`Lewbrandt GmbH"'}
+  \footnotesize
+ \centering
+ \begin{tabular}{*{5}{c}rrrc}
+  \toprule
+  $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & \scriptsize Gewinn & \scriptsize Umsatz & \scriptsize Abwasser & p.-o. \\
+  \midrule
+  0&	1&	0&	1&	0&	150&	275&	5,9&	ja\\
+  \alert{0}&	\alert{1}&	\alert{0}&	\alert{1}&	\alert{1}&	\alert{220}&	\alert{490}&	\alert{10,7}&	\alert{nein}\\
+  1&	1&	0&	0&	0&	250&	530&	9,7&	ja\\
+  1&	1&	0&	1&	0&	300&	615&	12,1&	ja\\
+  \bottomrule
+ \end{tabular}
+ \end{block}
+
+\end{frame}
+

@@ -1,0 +1,82 @@
+\sectionframe{Weiche Nebenbedingungen}
+\begin{frame}
+ \frametitle{Beispiel: Produktionsproblem}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_i & \quad\forall r\in R & \mathrm{(\alert{I})}\\
+	  & x_i \geq 0 & \quad\forall i\in I & \\
+  \end{array}
+ \end{equation*}
+ 
+ Nebenbedingung~\textrm{(\alert{I})} ist eine "`harte"' Nebenbedingung, sie muss exakt eingehalten werden.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Weiche Ungleichungsbedingung}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_r + \colorbox{gray!20}{$o_r$} & \quad\forall r\in R & \mathrm{(I)}\\
+	  & x_i, \colorbox{gray!20}{$o_r$} \geq 0 & \quad\forall i\in I, r\in R & \\
+  \end{array}
+ \end{equation*}
+ 
+ Problem: keine Optimallösung, da Lösungsraum in Optimierungsrichtung unbeschränkt
+\end{frame}
+
+\begin{frame}
+ \frametitle{Weiche Ungleichungsbedingung mit Strafkosten und Beschränkung}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} \colorbox{gray!20}{$k_r$} \cdot o_r & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_r + o_r & \quad\forall r\in R & \mathrm{(I)}\\
+	& o_r \leq \colorbox{gray!20}{$m_r$} & \quad\forall r\in R & \mathrm{(II)}\\[1ex]
+	& x_i,o_r \geq 0 & \quad\forall i\in I, r\in R & \\
+  \end{array}
+ \end{equation*}  
+\end{frame}
+
+\begin{frame}
+ \frametitle{Beispiel: Produktionsproblem mit Vollauslastung}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i & \quad\forall r\in R & \mathrm{(\alert{I})}\\
+	  & x_i \geq 0 & \quad\forall i\in I & \\
+  \end{array}
+ \end{equation*}
+ 
+ Nebenbedingung~\textrm{(\alert{I})} ist eine "`harte"' Nebenbedingung, sie muss exakt eingehalten werden.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Weiche Gleichhungsbedingung}
+  \begin{equation*}
+    \begin{array}{rllr}
+      \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} \colorbox{gray!20}{$k_r$} \cdot \colorbox{gray!20}{$|o_r|$} & & \\[3ex]
+      s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i + \colorbox{gray!20}{$o_r$} & \quad\forall r\in R & \mathrm{(I)}\\
+	    & x_i \geq 0, \colorbox{gray!20}{$o_r$} \lessgtr0 & \quad\forall i\in I, r\in R & \\
+    \end{array}
+  \end{equation*}
+ 
+ Problem: Absolutbetrag ist keine lineare Funktion.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Weiche Gleichhungsbedingung}
+  Lösung: Substituiere $o_r = o_r^+ - o_r^-$
+  
+  \begin{equation*}
+    \begin{array}{rllr}
+      \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} k_r \cdot \colorbox{gray!20}{$o_r^+ + o_r^-$} & & \\[3ex]
+      s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i + \colorbox{gray!20}{$o_r^+ - o_r^-$} & \quad\forall r\in R & \mathrm{(I)}\\
+	    & x_i, \colorbox{gray!20}{$o_r^+$}, \colorbox{gray!20}{$o_r^-$} \geq 0 & \quad\forall i\in I, r\in R & \\
+    \end{array}
+  \end{equation*}
+  
+  \begin{alertblock}{Vorsicht bei Auflösung von Absolutbeträgen}
+   Die Zerlegung einer Variable in zwei Summanden ist nicht eindeutig. Es muss sichergestellt sein, dass ein Summand null ist.
+  \end{alertblock}
+\end{frame}
+

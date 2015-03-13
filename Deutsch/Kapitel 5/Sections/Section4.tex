@@ -1,0 +1,237 @@
+\sectionframe{Multikriterielle Optimierung}
+\begin{frame}
+ Zielfunktionen aus Beispiel "`Lewbrandt Gmbh"':
+ \frametitle{Beispiel-Zielfunktionen}
+ \begin{itemize}
+  \item Gewinn: $\max f_G(\mathbf{\overline{x}}) = 150\cdot x_1 + 100\cdot x_2 + 150\cdot x_3 + 50\cdot x_4 + 70\cdot x_5$
+  \item Umsatz: $\max f_U(\mathbf{\overline{x}}) = 340\cdot x_1 + 190\cdot x_2 + 220\cdot x_3 + 85\cdot x_4 + 215\cdot x_5$
+  \item Abwasser: $\max f_A(\mathbf{\overline{x}}) = -6,2\cdot x_1 - 3,5\cdot x_2 - 5,8\cdot x_3 - 2,4\cdot x_4 - 4,8\cdot x_5$
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Zielgewichtung}
+ Erstelle \alert{eine} gemeinsame Zielfunktion, indem die Ziele mit Gewichtungsfaktoren versehen und addiert werden.
+ 
+ \begin{block}{Zielgewichtung im Beispiel "`Lewbrandt GmbH"'}
+  Gewichtungsfaktoren: $a_g=5$, $a_U=1$, $a_A=50$\par
+  neue Zielfunktion: 
+  \[
+  \begin{split}
+  \max f(\mathbf{\overline{x}}) &= a_g\cdot f_G(\mathbf{\overline{x}}) + a_U\cdot f_U(\mathbf{\overline{x}})+a_A\cdot f_A(\mathbf{\overline{x}})\\
+  &=5\cdot f_G(\mathbf{\overline{x}}) + 1\cdot f_U(\mathbf{\overline{x}})+50\cdot f_A(\mathbf{\overline{x}})
+  \end{split}
+  \]
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Multikriterielles Rucksackproblem (Zielgewichtung)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $I$ & Menge der Gegenstände\\
+  $O$ & Menge der Ziele\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $w_i$& Gewicht von Gegenstand~$i\in I$\\
+  $u_{oi}$& Nutzen von Gegenstand~$i\in I$ bzgl. Ziel~$o\in O$\\
+  $c$& Kapazität des Rucksacks\\
+  $a_o$& Gewicht des Ziels~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_i$ & Binäre Entscheidungsvariable; zeigt an ob Gegenstand \mbox{$i\in I$} eingepackt wird\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max & \displaystyle\sum_{o\in O} a_o\displaystyle\sum_{i\in I} u_{oi}\cdot x_i & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+		& x_i \in \{0,1\} & \quad\forall i\in I & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Hauptziel \& Anspruchsniveaus}
+ Wähle \alert{ein} Hauptziel. Definiere für die restlichen Ziele Anspruchsniveaus, die durch Nebenbedingungen sichergestellt werden.
+ 
+ \begin{block}{Hauptziel \& Anspruchsniveaus im Beispiel "`Lewbrandt GmbH"'}
+  Sei das Hauptziel die Abwasseremission. Dabei sollen mindestens $225\,$k€ Gewinn und $480\,$k€ Umsatz gemacht werden:
+  
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & f_A(\mathbf{\overline{x}})\\[1ex]
+      s.t. & f_A(\mathbf{\overline{x}}) \geq 225\\
+	   & f_U(\mathbf{\overline{x}}) \geq 480\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Multikriterielles Rucksackproblem (Hauptziel)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $I$ & Menge der Gegenstände\\
+  $O$ & Menge der Ziele\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $w_i$& Gewicht von Gegenstand~$i\in I$\\
+  $u_{oi}$& Nutzen von Gegenstand~$i\in I$ bzgl. Ziel~$o\in O$\\
+  $c$& Kapazität des Rucksacks\\
+  $h$&Hauptziel $h\in O$\\
+  $a_o$& Anspruchsniveau des Ziels~$o\in O\textbackslash\{h\}$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_i$ & Binäre Entscheidungsvariable; zeigt an ob Gegenstand \mbox{$i\in I$} eingepackt wird\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max & \displaystyle\sum_{i\in I} u_{hi}\cdot x_i & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i \geq a_o & \quad\forall o\in O\textbackslash\{h\} & \mathrm{(II)}\\
+	     & x_i \in \{0,1\} & \quad\forall i\in I & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Goal Programming (klassisch)}
+ Wähle Zielwerte für alle Zielfunktionen und bestrafe Abweichungen von den Zielwerten.
+ 
+ \begin{block}{Goal Programming im Beispiel "`Lewbrandt GmbH"'}
+  Zielwerte: $a_G=220$, $a_U=480$, $a_A=-11$\par
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & |z_G|+|z_U|+|z_A|\\[1ex]
+      s.t. & f_G(\mathbf{\overline{x}}) = 220+z_G\\
+	   & f_U(\mathbf{\overline{x}}) = 480+z_U\\
+	   & f_A(\mathbf{\overline{x}}) = -11+z_A\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Multikriterielles Rucksackproblem (GP1)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $I$ & Menge der Gegenstände\\
+  $O$ & Menge der Ziele\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $w_i$& Gewicht von Gegenstand~$i\in I$\\
+  $u_{oi}$& Nutzen von Gegenstand~$i\in I$ bzgl. Ziel~$o\in O$\\
+  $c$& Kapazität des Rucksacks\\
+  $a_o$& Anspruchsniveau des Ziels~$o\in O$\\
+  %$b_o$& Abweichungskosten für Ziel~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_i$ & Binäre Entscheidungsvariable; zeigt an ob Gegenstand \mbox{$i\in I$} eingepackt wird\\
+  $z_o$& Abweichung vom Zielwert des Ziels~$o\in O$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{o\in O} |z_o| & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i = a_o + z_o & \quad\forall o\in O & \mathrm{(II)}\\
+	     & x_i \in \{0,1\}, z_o \lessgtr 0 & \quad\forall i\in I, o\in O & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Goal Programming (erweiterte Variante)}
+ Bestrafe nur ungewollte Abweichungen und verwende Gewichtungsfaktoren für Abweichungen.
+ 
+ \begin{block}{Goal Programming im Beispiel "`Lewbrandt GmbH"'}
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & w_G\cdot z_G + w_U\cdot z_U + w_A\cdot z_A\\[1ex]
+      s.t. & f_G(\mathbf{\overline{x}}) \geq 220-z_G\\
+	   & f_U(\mathbf{\overline{x}}) \geq 480-z_U\\
+	   & f_A(\mathbf{\overline{x}}) \geq -11-z_A\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Multikriterielles Rucksackproblem (GP2)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+  $I$ & Menge der Gegenstände\\
+  $O$ & Menge der Ziele\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+  $w_i$& Gewicht von Gegenstand~$i\in I$\\
+  $u_{oi}$& Nutzen von Gegenstand~$i\in I$ bzgl. Ziel~$o\in O$\\
+  $c$& Kapazität des Rucksacks\\
+  $a_o$& Zielwert des Ziels~$o\in O$\\
+  $b_o$& Abweichungskosten für Ziel~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+  $x_i$ & Binäre Entscheidungsvariable; zeigt an ob Gegenstand \mbox{$i\in I$} eingepackt wird\\
+  $z_o$& Abweichung vom Zielwert des Ziels~$o\in O$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{o\in O} b_o\cdot z_o & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i \geq a_o - z_o & \quad\forall o\in O & \mathrm{(II)}\\
+	     & x_i \in \{0,1\}, z_o \geq 0 & \quad\forall i\in I, o\in O & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Lexikographische Ordnung der Ziele}
+ Mithilfe eindeutiger Zielhierarchien ist es möglich die Lösungen lexikographisch zu ordnen.
+ 
+ \begin{block}{Ausgewählte lexikograpisch geordnete Lösungen des Beispiels "`Lewbrandt GmbH"'}
+ Die Zielhierarchie sei: Gewinn > Umsatz > Abwasser\par
+ \footnotesize
+ \centering
+ \begin{tabular}{*{5}{c}rrr}
+  \toprule
+  $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & \scriptsize Gewinn & \scriptsize Umsatz & \scriptsize Abwasser \\
+  \midrule
+  1&	1&	0&	1&	0&	300&	615&	12,1\\
+  0&	1&	1&	1&	0&	300&	495&	11,7\\
+  1&	0&	0&	1&	1&	270&	640&	13,4\\
+  1&	1&	0&	0&	0&	250&	530&	9,7\\
+  0&	1&	1&	0&	0&	250&	410&	9,3\\
+  \bottomrule
+ \end{tabular}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Preemptive Goal Programming}
+ \textbf{Algorithmus:} Preemptive Goal Programming
+  \addtolength{\abovedisplayskip}{-2ex}
+  \addtolength{\belowdisplayskip}{-2ex}
+  \begin{enumerate}
+  \item Setze $i=1$
+  \item \label{item:Label1} Löse das Problem mit der Zielfunktion $f_i$ des Ziels~$i$. Man erhält die Optimallösung $\mathbf{x}^*$ und den Optimalwert $f_i^*$.
+  \item Falls $i=n$: $\mathbf{x}^*$ ist die lexikographische Optimallösung. Ende.
+  \item Füge dem Modell die folgende Nebenbedingung hinzu: \[f_i(\mathbf{x}) = f_i^*\]
+  \item Setze $i=i+1$ und gehe zu Schritt~\ref{item:Label1}.
+  \end{enumerate}
+  \addtolength{\abovedisplayskip}{2ex}
+  \addtolength{\belowdisplayskip}{2ex}
+\end{frame}
+
+
+
