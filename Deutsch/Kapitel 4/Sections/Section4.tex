@@ -1,0 +1,55 @@
+\sectionframe{OPL: Operatoren mit Bedingungen}
+\begin{frame}
+ \frametitle{Operatoren mit Bedingungen}
+ Mithilfe eines Doppelpunkts lassen sich Bedingungen an Laufindizes stellen, die erfüllt werden müssen, damit der Index vom Operator berücksichtigt wird:
+ \begin{center}\ttfamily
+  sum(\textsf{\textsl{Laufindex}} in \textsf{\textsl{Indexmenge}} : \textsf{\textsl{Bedingung}})
+ \end{center}
+ bzw. 
+ \begin{center}\ttfamily
+  forall(\textsf{\textsl{Laufindex}} in \textsf{\textsl{Indexmenge}} : \textsf{\textsl{Bedingung}})
+ \end{center}
+ Bedingungen sind logische Ausdrücke (keine Boolean-Entscheidungsvariablen!)
+\end{frame}
+
+\begin{frame}
+ \frametitle{Konstruktion von Bedingungen}
+ \begin{block}{Literale für Wahrheitswerte}
+  \texttt{true}, \texttt{false}
+ \end{block}
+ \begin{block}{Vergleichsoperatoren für Wahrheitswerte}
+  \centering\ttfamily
+  \begin{tabular}{lcccccc}
+    \toprule
+    \textrm{math. Schreibweise} & $=$ & $\neq$ & $\leq$ & $<$ & $\geq$ & $>$ \\
+    \midrule
+    \textrm{OPL-Syntax} & == & != & <= & < & >= & >\\
+    \bottomrule
+  \end{tabular}
+ \end{block}
+ \begin{block}{Logische Verknüpfungen für Wahrheitswerte}
+  \centering\ttfamily
+  \begin{tabular}{lcccc}
+    \toprule
+    \textrm{math. Schreibweise} & $\neg$ & $\wedge$ & $\vee$ & $\veebar$\\
+    \midrule
+    \textrm{OPL-Syntax} & ! & \&\& & || & != \\
+    \bottomrule
+  \end{tabular}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Anwendung von Tupel-Datentypen (Variante 2)}
+ Knoten und Kanten seien wie oben definiert.
+ 
+ \begin{block}{Anwendungsbeispiel}
+  $\displaystyle\sum_{(r, t)\in E} x_{rt} = 1  \qquad\forall t\in T$\\
+  \begin{center}
+   \structure{\textdownarrow{} OPL \textdownarrow{}}
+  \end{center}
+  {\ttfamily forall(\alert{t} in T)\\
+  \quad sum(e in E : e.task == \alert{t})(x[e]) == 1;}
+ \end{block}
+\end{frame}
+

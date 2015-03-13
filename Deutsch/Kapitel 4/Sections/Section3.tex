@@ -1,0 +1,111 @@
+\sectionframe{OPL: Selbst\-de\-fi\-nier\-te Tupel als Da\-ten\-struk\-tur}
+\begin{frame}
+ \frametitle{Beispiel: Relieve Ärzte}
+ \begin{figure}
+  \includegraphics<1>[width=\linewidth,page=1]{Bilder/Graph_Zuordnungsproblem}
+  \includegraphics<2>[width=\linewidth,page=2]{Bilder/Graph_Zuordnungsproblem}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Zuordnungsproblem}
+ \small
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+     $R$ & Menge der Ressourcen\\
+     $T$ & Menge der Aufgaben\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+     $E$ & Menge der Kanten im Zuordnungsgraphen\\
+     $c_{rt}$ & Kosten für die Auswahl der Kante $(r, t)\in E$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+     $x_{rt}$ & Binärvariable, die angibt ob die Kante $(r, t)\in E$ ausgewählt wurde\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{(r, t)\in E}  c_{rt}\cdot x_{rt} & & \\[3ex]
+	s.t. & \displaystyle\sum_{(r, t)\in E} x_{rt} = 1 & \quad\forall t\in T & \mathrm{(I)}\\
+	      & \displaystyle\sum_{(r, t)\in E} x_{rt} \leq 1 & \quad\forall r\in R & \mathrm{(II)}\\
+	      & x_{rt} \in \{0, 1\} & \quad\forall (r, t)\in E & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Abbildung der fehlenden Kanten in OPL}
+ \begin{itemize}
+  \item Fehlende Kanten mit prohibitiv hohen Kosten versehen. Nachteile:
+  \begin{itemize}
+   \item überflüssige Binärvariablen
+   \item anfällig für Maschinenrundungsfehler
+   \item wenn dann nur in gewichteten Graphen möglich
+  \end{itemize}
+  \item Adjazenzmatrix. Nachteile:
+  \begin{itemize}
+   \item überflüssige Binärvariablen
+  \end{itemize}
+  \item Adjazenzlisten. Nachteile:
+  \begin{itemize}
+   \item \texttt{x[r in R][t in A[r]]} \textrightarrow{} Fehlermeldung:
+    "`Die Größe des Variablenindexers ist für einen generischen Array nicht zulässig."'
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\shorthandoff{"}
+\begin{frame}
+ \frametitle{Datenstruktur Tupel}
+ Tupel sind selbstdefinierte Datenstrukturen, die aus Elementen anderer Datenstrukturen bestehen.
+ 
+ \begin{block}{Definition eines neuen Tupel-Datentyps}
+ \small\ttfamily
+  tuple \textit{Name\_der\_Tupel-Datenstruktur} \{\\
+  \ \ \textit{Datentyp\_des\_1.\_Elements} \textit{Name\_des\_1.\_Elements};\\
+  \ \ \textit{Datentyp\_des\_2.\_Elements} \textit{Name\_des\_2.\_Elements};\\
+  \ \ ...\\
+  \}
+  \end{block}
+  
+  \begin{block}{Beispiel: Kanten als Tupel-Datentyp}
+   \ttfamily\small
+   \{string\} V = \{"A", "B", "C"\};\\
+   tupel edge \{\\
+   \ \ string start;\\
+   \ \ string end;\\
+  \};
+  \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Tupel-Literale und -Elemente}
+ In Literalen eines Tupel-Datentyps werden die Elemente der Reihenfolge nach in spitzen Klammern zugeordnet.
+ \begin{block}{Beispiel: Definition einer Kante als Literal}
+  \ttfamily
+    edge e = <"A", "B">;
+ \end{block}
+ 
+ Einzelne Elemente eines Tupel-Datentyps werden mit einem Punkt angesprochen.
+ \begin{block}{Beispiel: Auslesen des Startknotens einer Kante}
+  {\ttfamily e.start} \qquad\textrightarrow{}\qquad {\ttfamily "A"}
+ \end{block}
+\end{frame}
+\shorthandon{"}
+
+\begin{frame}
+ \frametitle{Anwendung von Tupel-Datentypen (Variante 1)}
+ Knoten und Kanten seien wie oben definiert.
+ 
+ \begin{block}{Anwendungsbeispiel}
+  $\displaystyle\sum_{(r, t)\in E} x_{rt} = 1  \qquad\forall t\in T$\\
+  \begin{center}
+   \structure{\textdownarrow{} OPL \textdownarrow{}}
+  \end{center}
+  {\ttfamily forall(\alert{t} in T)\\
+  \quad sum(<r,\alert{t}> in E)(x[<r,t>]) == 1;}
+ \end{block}
+\end{frame}
+
+
