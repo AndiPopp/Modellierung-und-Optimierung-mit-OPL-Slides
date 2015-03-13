@@ -1,0 +1,113 @@
+\sectionframe{Wahr\-schein\-lich\-keits\-be\-schränk\-te Op\-ti\-mie\-rung}
+\begin{frame}
+ \frametitle{Beispiel: Lewig Pattming}
+ \begin{block}{Verkaufspreise und Kapazität}
+  \begin{center}\upshape
+    \begin{tabular}{lccc@{\qquad}l}
+    \toprule
+      & $I_1$ & $I_2$ & $I_3$ & Kapazität\\
+    \midrule 
+      $R_1$ & 3,2 & 2,4 & 2,6 & 600 \\
+      $R_2$ & 6,5 & 8,3 & 7,8 & 800 \\
+    \midrule
+      VP & 1,4 & 1,6 & 1,5 & \\
+    \bottomrule
+    \end{tabular}
+  \end{center}
+ \end{block}
+ \begin{block}{Nachfrageschätzer}
+  $\left.\begin{array}{l}
+   D_{I_1} \sim N(25, 10)\\
+   D_{I_2} \sim N(10, 5)\\
+   D_{I_3} \sim N(18, 7)
+  \end{array}\right\}$
+  \begin{minipage}[m]{.6\linewidth}
+   \raggedright
+   Wahrscheinlichkeit einer Lieferunfähigkeit soll $<5\%$ sein
+  \end{minipage}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Stochastisches Produktionsproblem (Variante 1)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+     $I$ & Menge der Produkte\\
+     $R$ & Menge der Ressourcen\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+     $v_i$ & Verkaufspreis von Produkt~$i\in I$\\
+     $c_r$ & Kapazität von Ressource~$r\in R$\\
+     $a_{ri}$ & Kapazitätsbedarf von Produkt~$i\in I$ an Ressource~$r\in R$ \\
+     $\alert{D_i}$ & \mbox{}\alert{Nachfrage nach Produkt~$i\in I$ (Zufallsvariable)}\\
+     $\alpha$ & $\alpha$-Servicegrad\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+     $x_{i}$ & Produktionsmenge von Produkt~$i\in I$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \multicolumn{3}{l}{
+		  \displaystyle\sum_{i\in I}v_i\cdot x_i
+		}\\[3ex]
+	s.t. & \displaystyle\sum_{r\in R} a_{ri}x_{i} \leq c_r & \quad\forall r\in R & \mathrm{(I)}\\
+	      & \alert{P\left(D_i\leq x_i\right) \geq \alpha}  & \quad\forall i\in I & \mathrm{(II)}\\%[.8ex]
+	      & x_i \geq 0 & \quad\forall i\in I &\\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Äquivalentes deterministisches Modell bei wahrscheinlichkeitsbeschränkter Optimierung}
+ Am Beispiel des stochastischen Produktionsproblems:
+ \begin{itemize}
+  \item $P(D_i\leq x_i) = \alert{F_{D_i}}(x_i)$ \quad\alert{\textsl{(Verteilungsfunktion)}}\medskip
+  \item $P\left(D_i\leq x_i\right) \geq \alpha \quad\Longleftrightarrow\quad x_i \geq \alert{F^{-1}_{D_i}(\alpha)}$\quad \alert{\textsl{(Konstante)}}
+ \end{itemize}
+ 
+ \begin{block}{Vorberechnete Konstanten des Beispiels}
+  \begin{center}
+  \begin{tabular}{lccc}
+    \toprule
+    $i$ & $I_1$ & $I_2$ & $I_3$\\
+    \midrule
+    $F^{-1}_{D_i}(0,95)$ & 41,4 & 18,2 & 29,5\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Stochastisches Produktionsproblem (Variante 2)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Indexmengen}:}\\
+     $I$ & Menge der Produkte\\
+     $R$ & Menge der Ressourcen\\
+  \multicolumn{2}{l}{\textbf{Parameter}:}\\
+     $v_i$ & Verkaufspreise von Produkte~$i\in I$\\
+     $c_r$ & Kapazität von Ressource~$r\in R$\\
+     $a_{ri}$ & Kapazitätsbedarf von Produkt~$i\in I$ an Ressource~$r\in R$ \\
+     $\alert{F^{-1}_{D_i}(\alpha)}$ & $\alpha$-Quantil der Nachfrage nach Produkt $i\in I$\\
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+     $x_{i}$ & Produktionsmenge von Produkt~$i\in I$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \multicolumn{3}{l}{
+		  \displaystyle\sum_{i\in I}v_i\cdot x_i
+		}\\[3ex]
+	s.t. & \displaystyle\sum_{r\in R} a_{ri}x_{i} \leq c_r & \quad\forall r\in R & \mathrm{(I)}\\
+	      & x_i \geq F^{-1}_{D_i}(\alpha)  & \quad\forall i\in I & \mathrm{(II)}\\%[.8ex]
+	      & x_i \geq 0 & \quad\forall i\in I &\\
+      \end{array}
+      $ 
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
