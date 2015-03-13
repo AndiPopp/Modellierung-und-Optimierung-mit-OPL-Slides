@@ -1,0 +1,116 @@
+\sectionframe{Lineare Optimierung}
+\subsection{Eigenschaften}
+\begin{frame}\small
+ \frametitle{Lineare Funktionen und Nebenbedingungen}
+ \begin{block}{Lineare Funktion}
+  \vspace{-2\baselineskip}
+  \begin{equation*}
+    f(x_1, \ldots, x_N) = \sum_{n=1}^{N} c_n\cdot x_n
+  \end{equation*}
+ \end{block}
+ \vspace{-\baselineskip}
+ \begin{block}{Lineare Nebenbedingung}
+  Sei $f$ eine lineare Funktion:
+  \begin{align*}
+   &f(x_1, \ldots, x_N) = b\\
+   &f(x_1, \ldots, x_N) \leq b\\
+   &f(x_1, \ldots, x_N) \geq b\\
+  \end{align*}
+ \end{block}
+ \vspace{-2\baselineskip}
+ \begin{block}{Lineares Optimierungsmodell}
+  Zielfunktion und Nebenbedingung linear in den Entscheidungsvariablen $\Longrightarrow$ lineares Optimierungsmodell
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Eigenschaften linearer Funktionen}
+ \begin{description}
+  \item[Proportionalität] Jede Variable trägt einen proportionalen Wert zur Funktion bei.
+  \item[Unabhängigkeit] Der Wert, den eine Variable zur Funktion beiträgt ist unabhängig
+von der Ausprägung der anderen Variablen.
+ \end{description}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Typische Anzeichen für Nichtlinearität}
+ \begin{itemize}
+  \item Variablen haben einen anderen Exponenten als~$1$
+  \begin{itemize}
+   \item andere natürliche Exponenten, z.B.: $x^2$
+   \item Wurzlen, z.B.: $\sqrt{x} = x^{\frac{1}{2}}$
+   \item Variablen im Nenner, z.B.: $\frac{1}{x} = x^{-1}$
+  \end{itemize}
+  \item Variablen werden miteinander multipliziert, z.B.: $x_1\cdot x_2$
+  \item Exponentialfunktionen, z.B.: $2^x$
+  \item Absolutbeträge, z.B. $|x|$
+ \end{itemize}
+
+ \begin{block}{Besonderheit: Konstanten}
+  Konstanten sind grundsätzlich nicht linear, stören aber in linearen Optimierungsmodellen nicht, da sie stets auflösbar sind.
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{deterministische vs. stochastische Optimierungsmodelle}
+ \begin{description}
+  \item[deterministische Optimierungsmodelle:] alle Paramter und Funktionswerte sind stets eindeutig bekannt
+  \item[stochastische Optimierungsmodelle:] Parameter und Funktionswerte unterliegen zufälligen Schwankung
+ \end{description}
+ 
+ Lineare Optimierungsmodelle sind grundsätzlich deterministisch.
+\end{frame}
+
+\begin{frame}
+ \frametitle{kontinuierliche vs. ganzzahlige Optimierungsmodelle}
+ \begin{description}
+  \item[kontinuierliche Optimierungsmodelle:] die Werte der Entscheidungsvariablen sind beliebig teilbar (reelle Werte)
+  \item[ganzzahlige Optimierungsmodelle:] die Werte der Entscheidungsvariablen können nur ganzzahlige Werte annehmen
+ \end{description}
+ 
+ \begin{block}{Arten von linearen Optimierungsmodellen nach zulässigen Werten für Entscheidungsvariablen:}
+  \begin{itemize}\footnotesize
+   \item kontinuierliche Entscheidungsvariablen $\Longrightarrow$ (kontinuierliches) lineares Optimierungsmodell
+   \item ganzzahlige Entscheidungsvariablen $\Longrightarrow$ ganzzahliges lineares Optimierungsmodell
+   \item sowohl kontinuierliche als auch ganzzahlige Entscheidungsvariablen $\Longrightarrow$ gemischt-ganzzahliges lineares Optimierungsmodell
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+\subsection{Lösung von linearen Modellen}
+
+\begin{frame}
+ \frametitle{Lösungsstrukturen für lineare Optimierungsmodelle}
+ \begin{itemize}
+  \item es gibt genau eine Optimallösung
+  \item es gibt unendlich viele Optimallösung %(jede Konvexkombination von zwei Optimallösungen ist wieder eine Optimallösung)
+  \item es gibt keine Optimallösung
+  \begin{itemize}
+   \item der Lösungsraum ist leer
+   \item der Lösungsraum ist unbeschränkt und die Zielfunktion geht gegen unendlich
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Gängige Lösungsverfahren für lineare Optimierungsmodelle}
+ \begin{block}{Lösungsverfahren für (kontinuierliche) lineare Optimierungsmodelle}
+  \begin{itemize}
+    \item Simplex-Verfahren von Dantzig
+    \item Innere-Punkte-Verfahren von Karmarkar 
+  \end{itemize}
+ \end{block}
+ \begin{block}{Lösungsverfahren für (gemischt-)ganzzahlige lineare Optimierungsmodelle}
+  \begin{itemize}
+    \item Branch-and-Bound-Verfahren
+    \item Schnittebenenverfahren 
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+
+
+
