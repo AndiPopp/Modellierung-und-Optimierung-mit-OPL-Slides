@@ -1,0 +1,41 @@
+\sectionframe{Fehler und Warnungen in OPL}
+\begin{frame}
+ \frametitle{Arten von Fehlern}
+ \begin{block}{Einteilung nach Schwere}
+  \begin{description}
+   \item[Fehler] Verhindert das erfolgreiche Abschließen eines Lösungslaufs
+   \item[Warnung] Behindert den Lösungslauf nicht, es kann aber zu unerwünschten Ergebnissen kommen. Manchmal Hinweis auf Fehler im Code.
+  \end{description}
+ \end{block}
+ \begin{block}{Einteilung nach Zeitpunkt des Auftretens}
+  \begin{description}
+   \item[Compilerfehler] Treten bei Übersetzung des Problems für den Solver auf. Werden von der IDE erkannt.
+   \item[Laufzeitfehler] Treten erst zur Laufzeit des Solvers auf. Werden nicht von der IDE erkannt, aber nach Lösungslauf angezeigt.
+  \end{description}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Häufige Fehlermeldungen bei ersten Versuchen}
+ \begin{itemize}
+  \item \texttt{syntax errpor, unexpected ...} (Compilerfehler)
+  \begin{itemize}
+   \item Compiler versteht die Anweisung nach "`unexpected"' an dieser Stelle nicht
+   \item fehlender Strichpunkt?
+  \end{itemize}
+  \item \texttt{syntax errpor, unexpected =} (Compilerfehler)
+  \begin{itemize}
+   \item Spezialfall zu oben
+   \item meist Verwechslung von Zuweisungsoperator~\texttt{=} und Vergleichsoperator~\texttt{==}
+  \end{itemize}
+  \item \texttt{Der Typ ... kann nicht für ... verwendet werden} (Compilerfehler)
+  \begin{itemize}
+   \item Datentypen durcheinander gebracht
+  \end{itemize}
+  \item \texttt{Der Index für den Array ... liegt außerhalb des gültigen Bereichs} (Laufzeitfehler)
+  \begin{itemize}
+   \item ein Array wurde mit einem ungültigen Index angesprochen
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+

@@ -1,0 +1,50 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{ae}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{blindtext}
+\usepackage{listings}
+
+%Settings
+\input{
+../Settings.tex}
+
+% Makros
+\input{../Makros.tex}
+
+%Always load hyperref last...
+\usepackage{hyperref}
+
+
+\begin{document}
+
+\setcounter{chapter}{2}
+\author[CC-BY-SA A.~Popp]{Andreas Popp\vspace{-2\baselineskip}}
+\date[CC-BY-SA]{\begin{center}
+                 \includegraphics[width=.2\linewidth]{Icons/CCBYSAbig}
+                \end{center}
+\footnotesize Dieser Foliensatz ist lizenziert unter einer  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz}.}
+\title[\thechapter{} Einführung in OPL]{\textbf{Modellierung und Optimierung mit OPL}\newline \thechapter{} Einführung in OPL}
+
+\frame{\titlepage}
+
+
+\begin{frame}[squeeze]
+ \frametitle{Inhalt}\scriptsize
+  \tableofcontents
+\end{frame}
+
+\input{Sections/Section0.tex}
+\input{Sections/Section1.tex}
+\input{Sections/Section2.tex}
+\input{Sections/Section3.tex}
+\input{Sections/Section4.tex}
+\input{Sections/Section5.tex}
+
+\end{document}
