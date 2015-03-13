@@ -1,0 +1,114 @@
+\sectionframe{Linear Optimization}
+\subsection{Properties}
+\begin{frame}\small
+ \frametitle{Linear functions and constraints}
+ \begin{block}{Linear functions}
+  \vspace{-2\baselineskip}
+  \begin{equation*}
+    f(x_1, \ldots, x_N) = \sum_{n=1}^{N} c_n\cdot x_n
+  \end{equation*}
+ \end{block}
+ \vspace{-\baselineskip}
+ \begin{block}{Linear constraints}
+  Let $f$ be a linear function:
+  \begin{align*}
+   &f(x_1, \ldots, x_N) = b\\
+   &f(x_1, \ldots, x_N) \leq b\\
+   &f(x_1, \ldots, x_N) \geq b\\
+  \end{align*}
+ \end{block}
+ \vspace{-2\baselineskip}
+ \begin{block}{Linear optimization model}
+  objective function and constraints linear in the decision variables $\Longrightarrow$ linear optimization model 
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Properties of linear functions}
+ \begin{description}
+  \item[Proportionality] Each variable contributes a proportional value to the function.
+  \item[Independence] The value each variable contributes to the function is independent of the manifestation of the other variables.
+ \end{description}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Typical signs for non-linearity}
+ \begin{itemize}
+  \item variables have other exponents than~$1$
+  \begin{itemize}
+   \item other natural exponents, e.g.: $x^2$
+   \item roots, e.g.: $\sqrt{x} = x^{\frac{1}{2}}$
+   \item variables in the denominator, e.g.: $\frac{1}{x} = x^{-1}$
+  \end{itemize}
+  \item variables are multiplied with each other, e.g.: $x_1\cdot x_2$
+  \item exponential functions, e.g.: $2^x$
+  \item absolute values, e.g. $|x|$
+ \end{itemize}
+
+ \begin{block}{Anomaly: constants}
+  While constants are non-linear by definition, they do not interfere with linear optimization models, since they can be eliminated easily.
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{deterministic vs. stochastic optimization models}
+ \begin{description}
+  \item[deterministic optimization models:] all parameters and function values are always exactly known
+  \item[stochastic optimization models:] parameters and function values succumb to random deviations
+ \end{description}
+ 
+ Linear optimization models are deterministic in general.
+\end{frame}
+
+\begin{frame}
+ \frametitle{continuous vs. integer optimization models}
+ \begin{description}
+  \item[continuous optimization models:] the values of the decision variables are continuous (real) values
+  \item[integer optimization models:] the values of the decision variables can only be integer
+ \end{description}
+ 
+ \begin{block}{Types of linear optimization models by possible values for decision variables:}
+  \begin{itemize}\footnotesize
+   \item continuous decision variables $\Longrightarrow$ (continuous) linear optimization model
+   \item integer decision variables $\Longrightarrow$ integer linear optimization model
+   \item continuous and integer decision variables $\Longrightarrow$ mixed integer linear optimization model
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+\subsection{Solution of linear problems}
+
+\begin{frame}
+ \frametitle{Solution structure of linear optimization models}
+ \begin{itemize}
+  \item there is exactly one optimal solution
+  \item there is an unlimited number of optimal solutions
+  \item there is no optimal solution
+  \begin{itemize}
+   \item the solution space is empty
+   \item the solution space is unbound and the objective function approaches infinity
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Well known solution methods for linear optimization models}
+ \begin{block}{Solution methods for (continuous) linear optimization models}
+  \begin{itemize}
+    \item Dantzig's simplex method
+    \item Karmarkar's inner point method
+  \end{itemize}
+ \end{block}
+ \begin{block}{Solution methods for (mixed) integer linear optimization models}
+  \begin{itemize}
+    \item Branch and bound method
+    \item Cutting planes methods
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+
+
+
