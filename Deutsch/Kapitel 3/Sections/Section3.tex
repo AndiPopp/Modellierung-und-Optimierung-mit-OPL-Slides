@@ -1,0 +1,39 @@
+\sectionframe{OPL: Kompakte Schreibweise}
+\begin{frame}[fragile]
+ \frametitle{Entscheidungsausdrücke}
+ Zielfunktion des Wagner-Whitin-Problems:
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+// Zielfunktion
+minimize sum(t in T)(s[t]*y[t] + h[t]* i[t]);
+\end{lstlisting}
+
+Zerlegen in Entscheidungsausdrücke:
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+// Entscheidungsausdrücke
+dexpr float setupCost = sum(t in T)(s[t]*y[t]);
+dexpr float inventoryCost = sum(t in T)(h[t]*i[t]);
+
+// Zielfunktion
+minimize setupCost + inventoryCost;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Arrays von Entscheidungsausdrücken}
+ Zielfunktion des Wagner-Whitin-Problems:
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+// Zielfunktion
+minimize sum(t in T)(s[t]*y[t] + h[t]* i[t]);
+\end{lstlisting}
+
+Zerlegen in Entscheidungsausdrücke:
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+//Entscheidungsausdrücke
+dexpr float periodCost[t in T] 
+ = s[t]*y[t] + h[t]*i[t];
+
+ // Zielfunktion
+minimize sum (t in T)(periodCost[t]);
+\end{lstlisting}
+\end{frame}
+
