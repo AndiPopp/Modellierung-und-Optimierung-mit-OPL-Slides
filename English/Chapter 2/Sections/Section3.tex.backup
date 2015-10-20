@@ -1,0 +1,180 @@
+\sectionframe{Mathematical models in OPL syntax}
+\begin{frame}[fragile]\small
+ \frametitle{Example: Production problem -- index sets}
+ \begin{block}{Mathematical model}
+  \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+   $I$& set of products\\
+   $R$& set of ressources\\[1ex]
+ \end{tabularx}
+ \end{block}\vspace{-1\baselineskip}
+ \begin{block}{Model file}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Index sets
+{string} I = ...; //products
+{string} R = ...; //ressources
+\end{lstlisting}
+ \end{block}\vspace{-2\baselineskip}
+ \begin{block}{Data file}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Index sets
+I = {"product 1", "product 2", "product 3"}; 
+R = {"machine A", "machine B"}; 
+\end{lstlisting}  
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]\small
+ \frametitle{Example: Production problem -- parameters}
+ \begin{block}{Mathematical model}
+   \begin{tabularx}{\linewidth}{lL}
+    \multicolumn{2}{l}{\textbf{Parameters}:}\\
+      $p_i$& price of product~$i\in I$\\
+      $c_r$& capacity of ressource~$r\in R$\\
+      $v_{ri}$& capacity consumption of product~$i\in I$ on ressource~$r\in R$\\
+   \end{tabularx}
+ \end{block}\vspace{-1\baselineskip}
+ \begin{block}{Model file}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Parameter
+float p[I] = ...; //price
+float c[R] = ...; //capacity
+float v[R][I] = ...; //capacity consumption
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]\small
+ \frametitle{Beispiel: Produktionsproblem -- Parameter}
+ \begin{block}{Mathematical model}
+   \begin{tabularx}{\linewidth}{lL}
+    \multicolumn{2}{l}{\textbf{Parameters}:}\\
+      $p_i$& price of product~$i\in I$\\
+      $c_r$& capacity of ressource~$r\in R$\\
+      $v_{ri}$& capacity consumption of product~$i\in I$ on ressource~$r\in R$\\
+   \end{tabularx}
+ \end{block}\vspace{-1\baselineskip}
+ \begin{block}{Data file}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Parameters
+p = [2.9, 3.3, 2.2];
+c = [64.0, 48.0];
+v = [
+  [5.3, 2.9, 2.5],
+  [3.9, 4.8, 3.1]
+];
+\end{lstlisting} 
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]\small
+ \frametitle{Beispiel: Produktionsproblem -- Entscheidungsvariablen}
+ \begin{block}{Mathematisches Modell}
+  \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Entscheidungsvariablen}:}\\
+    $x_i$& Produktionsmenge von Produkt $i\in I$\\[2ex]
+  \multicolumn{2}{c}{[\ldots]}\\[2ex]
+  \multicolumn{2}{l}{ $x_i \geq0\quad\forall i\in I$}\\
+  \end{tabularx}\\
+ \end{block}
+ \begin{block}{Modelldatei}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Entscheidungsvariablen
+dvar float+ x[I]; //Produktionsmenge
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]\small
+ \frametitle{Beispiel: Produktionsproblem -- Zielfunktion}
+ \begin{block}{Mathematisches Modell}
+  $     \max\quad \displaystyle\sum_{i\in I} p_i\cdot x_i	$
+ \end{block}
+ \begin{block}{Modelldatei}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Zielfunktion
+maximize sum(i in I)(p[i]*x[i]);
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]\small
+ \frametitle{Beispiel: Produktionsproblem -- Nebenbedingungen}
+ \begin{block}{Mathematisches Modell}
+  $\text{s.t.}\quad\displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_i  \quad\forall r\in R$
+ \end{block}
+ \begin{block}{Modelldatei}\scriptsize
+\begin{lstlisting}[numbers=none]
+//Nebenbedingungen
+subject to{
+  
+  //Kapazitätsrestriktion
+  forall(r in R)
+    sum(i in I)(v[r,i]*x[i]) <= c[r];
+  
+}  
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Beispiel: Produktionsproblem.mod}
+ \medskip
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+//Indexmengen
+{string} I = ...; //Produkte
+{string} R = ...; //Ressourcen
+
+//Parameter
+float p[I] = ...; //Preis
+float c[R] = ...; //Kapazität
+float v[R][I] = ...; //Kapazitätsverbrauch
+
+//Entscheidungsvariablen
+dvar float+ x[I]; //Produktionsmenge
+
+//Zielfunktion
+maximize sum(i in I)(p[i] * x[i]);
+
+//Nebenbedingungen
+subject to{
+  
+  //Kapazitätsrestriktion
+  forall(r in R)
+    sum(i in I)(v[r][i]*x[i]) <= c[r];
+  
+}   
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Beispiel: LewigSanstetten.dat}
+ \medskip
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+//Indexmengen
+I = {"Produkt_1", "Produkt_2", "Produkt_3"}; 
+R = {"Maschine_A", "Maschine_B"}; 
+ 
+//Parameter
+p = [2.9, 3.3, 2.2];
+c = [64.0, 48.0];
+v = [
+  [5.3, 2.9, 2.5],
+  [3.9, 4.8, 3.1]
+]; 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Lösung der Modellinstanz}
+ \ttfamily
+ > oplrun -v Produktionsproblem.mod LewigSanstetten.dat
+ \begin{center}
+  \textsf ...
+ \end{center}
+ OBJECTIVE: 35.61677 \hfill\alert{\textsf{\textleftarrow{} Optimalwert}}
+ \begin{center}
+  \textsf ...
+ \end{center}
+ x = [11.737 0 0.71856]; \hfill\alert{\textsf{\textleftarrow{} Optimallösung}}
+\end{frame}

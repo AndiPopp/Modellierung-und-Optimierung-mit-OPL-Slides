@@ -1,0 +1,174 @@
+%Beamer Einstellungen
+\usetheme{Goettingen}
+\newcounter{chapter}
+
+\setbeamertemplate{section in head/foot}{\hfill\thechapter.\insertsectionheadnumber.~\insertsectionhead}
+\setbeamertemplate{section in head/foot shaded}{\color{structure!50}\hfill\thechapter.\insertsectionheadnumber.~\insertsectionhead}
+\setbeamertemplate{section in toc}{\large\thechapter.\inserttocsectionnumber~\inserttocsection}
+\makeatletter
+\setbeamertemplate{section in sidebar}%{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar}{\thechapter.\insertsectionheadnumber
+~\insertsectionhead}%
+  }%
+}
+\setbeamertemplate{section in sidebar shaded}%{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar shaded}{\thechapter.\insertsectionheadnumber
+~\insertsectionhead}%
+  }%
+}
+\addtobeamertemplate{navigation symbols}{%
+	\usebeamerfont{footline}%
+ 	\usebeamercolor[fg]{footline}%
+ 	\raisebox{.25ex}{\insertframenumber/\inserttotalframenumber}
+}{}
+\makeatother
+
+%Farbe
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{mybygrey}{gray}{.93}
+\definecolor{eclipse-comments}{rgb}{0,0.6,0}
+\definecolor{eclipse-strings}{rgb}{1,0,1}
+\definecolor{eclipse-keywords}{rgb}{0,0,1}
+
+% Lenghts
+\setlength{\parskip}{.5\baselineskip plus .2\baselineskip minus .1\baselineskip}
+
+%Eurozeichen
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro}
+
+%tabellen
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+%Listings Ilog-Script-Definition
+\lstdefinelanguage{IlogScript}{
+  keywords=[1]{typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, for},
+  keywordstyle=[1]\color{orange}\bfseries,
+  keywords=[2]{class, export, boolean, throw, implements, import, this, execute, int, main},
+  keywordstyle=[2]\color{blue}\bfseries,
+  keywords=[3]{write, writeln, thisOplModel, cplex},
+  keywordstyle=[3]\color{RedViolet}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l][\color{eclipse-comments}]{//},%
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{mymauve}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  showstringspaces=false
+}[keywords,comments,strings]%
+
+%Listings OPL Definition
+\lstdefinelanguage[]{opl}%
+{
+  keywords=[1]{
+    maximize, minimize, subject, to, forall, sum, solve, string, dvar, boolean, int, int+, float, float+, enum, tupel, ftoi, mod, abs, maxint, sqrt, ceil, floor, distToInt, frac, trunc, infinity, first, last, card, ord, next, prev, range, in, struct, prod, min, max, union, inter, not, initialize, var, dmin, dmax, dsize, bound, dnexthigher, alldifferent, circuit, distribute, try, endtry, tryall, if, endif, then, else, while, select, once, search, when, onValue, generate, generationMin, generationMax, generateSeq
+  },
+  keywordstyle=[1]\color{eclipse-keywords},
+  morekeywords={..,=,<,>,<=,=>,==},
+  keywords=[2]{typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=[2]\color{orange}\bfseries,
+  keywords=[3]{write, writeln, thisOplModel, from, DBConnection, DBRead, DBUpdate, SheetConnection, SheetRead, SheetWrite},
+  keywordstyle=[3]\color{RedViolet}\bfseries,
+  comment=[l][\color{eclipse-comments}]{//},%
+  morecomment=[s][\color{eclipse-comments}]{/*}{*/},%
+  string=[b][\color{eclipse-strings}]\``,%
+  stringstyle=\color{mymauve}\ttfamily,
+  morestring=[b]",%
+  morestring=[b]',%
+  showstringspaces=false
+}[keywords,comments,strings]%
+
+\lstset{ %
+  backgroundcolor=\color{mybygrey},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  %deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  frame=leftline,                    % adds a frame around the code
+  keywordstyle=\color{blue},       % keyword style
+  language=opl,                 % the language of the code
+  linewidth=\textwidth,
+  morekeywords={*,documentclass,begin,title,author,date,maketitle},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  xleftmargin=.05\textwidth,
+  literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1,
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%Listings OPL Data Definition
+\lstdefinelanguage[]{opldata}%
+{
+  keywords=[1]{
+    maximize, minimize, subject, forall, sum, solve, string, dvar, boolean, int, int+, float, float+, enum, tupel, ftoi, mod, abs, maxint, sqrt, ceil, floor, distToInt, frac, trunc, infinity, first, last, card, ord, next, prev, range, in, struct, prod, min, max, union, inter, not, initialize, var, dmin, dmax, dsize, bound, dnexthigher, alldifferent, circuit, distribute, try, endtry, tryall, if, endif, then, else, while, select, once, search, when, onValue, generate, generationMin, generationMax, generateSeq
+  },
+  keywordstyle=[1]\color{eclipse-keywords},
+  morekeywords={..,=,<,>,<=,=>,==},
+  keywords=[2]{typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=[2]\color{orange}\bfseries,
+  keywords=[3]{write, writeln, thisOplModel, from, to, DBConnection, DBRead, DBUpdate, SheetConnection, SheetRead, SheetWrite},
+  keywordstyle=[3]\color{RedViolet}\bfseries,
+  comment=[l][\color{eclipse-comments}]{//},%
+  morecomment=[s][\color{eclipse-comments}]{/*}{*/},%
+  string=[b][\color{eclipse-strings}]\``,%
+  stringstyle=\color{mymauve}\ttfamily,
+  morestring=[b]",%
+  morestring=[b]',%
+  showstringspaces=false
+}[keywords,comments,strings]%
+
+\lstset{ %
+  backgroundcolor=\color{mybygrey},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  %deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  frame=leftline,                    % adds a frame around the code
+  keywordstyle=\color{blue},       % keyword style
+  language=opl,                 % the language of the code
+  linewidth=\textwidth,
+  morekeywords={*,documentclass,begin,title,author,date,maketitle},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  xleftmargin=.05\textwidth,
+  literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1,
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}

@@ -1,0 +1,23 @@
+\RequirePackage{ifthen}
+\newcommand{\sectionframe}[2][\empty]{
+  \ifthenelse{\equal{#1}{\empty}}
+    {\section{#2}}
+    {\section[#1]{#2}}
+  \begin{frame}
+   \begin{center}
+    \LARGE\bfseries \thechapter.\thesection{} #2
+   \end{center}
+  \end{frame}
+}
+
+\newcommand{\subsectionframe}[2][\empty]{
+  \ifthenelse{\equal{#1}{\empty}}
+    {\subsection{#2}}
+    {\subsection[#1]{#2}}
+  \begin{frame}
+   \begin{center}
+    \Large\bfseries #2
+   \end{center}
+  \end{frame}
+}
+

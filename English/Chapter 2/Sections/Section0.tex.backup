@@ -1,0 +1,11 @@
+\begin{frame}
+ \frametitle{About CPLEX}
+ \begin{itemize}
+  \item seit 1988 vertriebener Solver (Software in die Lösungsverfahren implementiert sind) für lineare Optimierungsmodelle
+  \item zuerst von CPLEX Optimization Inc., dann ILOG, dann IBM verkauft
+  \item starke Verbreitung in Wissenschaft und Industrie
+  \item Schnittstellen für bekannte Programmiersprachen wie C++, Java oder C\#
+  \item eigene Modellierungssprache: \structure{OPL} (Optimization Programming Language)
+  \item im Rahmen der IBM Academic Iniative konstenfrei für akademische Anwendungen
+ \end{itemize}
+\end{frame}
