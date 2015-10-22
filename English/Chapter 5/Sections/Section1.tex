@@ -1,0 +1,82 @@
+\sectionframe{Soft constraints}
+\begin{frame}
+ \frametitle{Example: production problem}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_i & \quad\forall r\in R & \mathrm{(\alert{I})}\\
+	  & x_i \geq 0 & \quad\forall i\in I & \\
+  \end{array}
+ \end{equation*}
+ 
+ Constraint~\textrm{(\alert{I})} is a ``hard'' constraint and must be fulfilled completely.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Soft inequality constraint}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_r + \colorbox{gray!20}{$o_r$} & \quad\forall r\in R & \mathrm{(I)}\\
+	  & x_i, \colorbox{gray!20}{$o_r$} \geq 0 & \quad\forall i\in I, r\in R & \\
+  \end{array}
+ \end{equation*}
+ 
+ Problem: no optimal solution, because the solution space is unbound in the direction of optimization.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Soft constraints with penalty costs and bounding}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} \colorbox{gray!20}{$k_r$} \cdot o_r & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_r + o_r & \quad\forall r\in R & \mathrm{(I)}\\
+	& o_r \leq \colorbox{gray!20}{$m_r$} & \quad\forall r\in R & \mathrm{(II)}\\[1ex]
+	& x_i,o_r \geq 0 & \quad\forall i\in I, r\in R & \\
+  \end{array}
+ \end{equation*}  
+\end{frame}
+
+\begin{frame}
+ \frametitle{Example: production problem with complete utilisation}
+ \begin{equation*}
+  \begin{array}{rllr}
+    \max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+    s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i & \quad\forall r\in R & \mathrm{(\alert{I})}\\
+	  & x_i \geq 0 & \quad\forall i\in I & \\
+  \end{array}
+ \end{equation*}
+ 
+ Constraint~\textrm{(\alert{I})} is a ``hard'' constraint and must be fulfilled completely.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Soft equality constraints}
+  \begin{equation*}
+    \begin{array}{rllr}
+      \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} \colorbox{gray!20}{$k_r$} \cdot \colorbox{gray!20}{$|o_r|$} & & \\[3ex]
+      s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i + \colorbox{gray!20}{$o_r$} & \quad\forall r\in R & \mathrm{(I)}\\
+	    & x_i \geq 0, \colorbox{gray!20}{$o_r$} \lessgtr0 & \quad\forall i\in I, r\in R & \\
+    \end{array}
+  \end{equation*}
+ 
+ Problem: The absolute value is not a linear function.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Soft equality constraints}
+  Solution: Substitute $o_r = o_r^+ - o_r^-$
+  
+  \begin{equation*}
+    \begin{array}{rllr}
+      \max & \displaystyle\sum_{i\in I} p_i\cdot x_i - \sum_{r\in R} k_r \cdot \colorbox{gray!20}{$o_r^+ + o_r^-$} & & \\[3ex]
+      s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i = c_i + \colorbox{gray!20}{$o_r^+ - o_r^-$} & \quad\forall r\in R & \mathrm{(I)}\\
+	    & x_i, \colorbox{gray!20}{$o_r^+$}, \colorbox{gray!20}{$o_r^-$} \geq 0 & \quad\forall i\in I, r\in R & \\
+    \end{array}
+  \end{equation*}
+  
+  \begin{alertblock}{Be aware when eliminating absolute values}
+   The decomposition of a variable in two summands is not unique. We have to make sure that one of the summands is zero.
+  \end{alertblock}
+\end{frame}
+

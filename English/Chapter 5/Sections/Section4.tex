@@ -1,0 +1,237 @@
+\sectionframe{Multicriteria optimization}
+\begin{frame}
+ Objective function as in example ``Lewbrandt GmbH'':
+ \frametitle{Example objective function}
+ \begin{itemize}
+  \item Profit: $\max f_G(\mathbf{\overline{x}}) = 150\cdot x_1 + 100\cdot x_2 + 150\cdot x_3 + 50\cdot x_4 + 70\cdot x_5$
+  \item Revenue: $\max f_U(\mathbf{\overline{x}}) = 340\cdot x_1 + 190\cdot x_2 + 220\cdot x_3 + 85\cdot x_4 + 215\cdot x_5$
+  \item Waste water: $\max f_A(\mathbf{\overline{x}}) = -6,2\cdot x_1 - 3,5\cdot x_2 - 5,8\cdot x_3 - 2,4\cdot x_4 - 4,8\cdot x_5$
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Weighted objectives}
+ Compose \alert{one} comprehensive objective function by weighing the objectives and adding them together.
+ 
+ \begin{block}{Weighted objectives in example ``Lewbrandt GmbH'' }
+  weights: $a_g=5$, $a_U=1$, $a_A=50$\par
+  new objective function: 
+  \[
+  \begin{split}
+  \max f(\mathbf{\overline{x}}) &= a_g\cdot f_G(\mathbf{\overline{x}}) + a_U\cdot f_U(\mathbf{\overline{x}})+a_A\cdot f_A(\mathbf{\overline{x}})\\
+  &=5\cdot f_G(\mathbf{\overline{x}}) + 1\cdot f_U(\mathbf{\overline{x}})+50\cdot f_A(\mathbf{\overline{x}})
+  \end{split}
+  \]
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Multicriteria knapsack problem (weighted objectives)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+  $I$ & set of items\\
+  $O$ & set of objectives\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+  $w_i$& weight of item~$i\in I$\\
+  $u_{oi}$& value of item~$i\in I$ w.r.t. objective~$o\in O$\\
+  $c$& knapsack's capacity\\
+  $a_o$& weight of objective~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+  $x_i$ & binary decision variable; represents item \mbox{$i\in I$} being packed\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max & \displaystyle\sum_{o\in O} a_o\displaystyle\sum_{i\in I} u_{oi}\cdot x_i & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+		& x_i \in \{0,1\} & \quad\forall i\in I & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Main objective \& aspiration levels}
+ Choose \alert{one} objective as main objective. Define aspiration levels for the other objectives, which will be asserted by constraints.
+ 
+ \begin{block}{Main objective \& aspiration levels in example ``Lewbrandt GmbH''}
+  Let the waster water emission be the main objective. We want to achieve at least  $225\,$k€ of profit and $480\,$k of revenue:
+  
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & f_A(\mathbf{\overline{x}})\\[1ex]
+      s.t. & f_A(\mathbf{\overline{x}}) \geq 225\\
+	   & f_U(\mathbf{\overline{x}}) \geq 480\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Multicriteria knapsack problem (main objective)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+  $I$ & set of items\\
+  $O$ & set of objectives\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+  $w_i$& weight of item~$i\in I$\\
+  $u_{oi}$& value of item~$i\in I$ w.r.t. objective~$o\in O$\\
+  $c$& knapsack's capacity\\
+  $h$& main objective $h\in O$\\
+  $a_o$& aspiration level of objective~$o\in O\textbackslash\{h\}$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+  $x_i$ & binary decision variable; represents item \mbox{$i\in I$} being packed\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max & \displaystyle\sum_{i\in I} u_{hi}\cdot x_i & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i \geq a_o & \quad\forall o\in O\textbackslash\{h\} & \mathrm{(II)}\\
+	     & x_i \in \{0,1\} & \quad\forall i\in I & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Goal programming (classic)}
+ Choose a goal value for all objective function and penalize deviation from those target values.
+ 
+ \begin{block}{Goal programmimg in example ``Lewbrandt GmbH''}
+  Goal values: $a_G=220$, $a_U=480$, $a_A=-11$\par
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & |z_G|+|z_U|+|z_A|\\[1ex]
+      s.t. & f_G(\mathbf{\overline{x}}) = 220+z_G\\
+	   & f_U(\mathbf{\overline{x}}) = 480+z_U\\
+	   & f_A(\mathbf{\overline{x}}) = -11+z_A\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Multicriteria knapsack problem (GP1)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+  $I$ & set of items\\
+  $O$ & set of objectives\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+  $w_i$& weight of item~$i\in I$\\
+  $u_{oi}$& value of item~$i\in I$ w.r.t. objective~$o\in O$\\
+  $c$& knapsack's capacity\\
+  $a_o$& goal value for objective~$o\in O$\\
+  %$b_o$& Abweichungskosten für Ziel~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+  $x_i$ & binary decision variable; represents item \mbox{$i\in I$} being packed\\
+  $z_o$& deviation from goal value of objective~$o\in O$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{o\in O} |z_o| & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i = a_o + z_o & \quad\forall o\in O & \mathrm{(II)}\\
+	     & x_i \in \{0,1\}, z_o \lessgtr 0 & \quad\forall i\in I, o\in O & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Goal Programming (extended version)}
+ Penalize only unwanted deviation and use weights for deviations.
+ 
+ \begin{block}{Goal programming in example ``Lewbrandt GmbH''}
+  \begin{equation*}
+    \begin{array}{rl}
+      \max & w_G\cdot z_G + w_U\cdot z_U + w_A\cdot z_A\\[1ex]
+      s.t. & f_G(\mathbf{\overline{x}}) \geq 220-z_G\\
+	   & f_U(\mathbf{\overline{x}}) \geq 480-z_U\\
+	   & f_A(\mathbf{\overline{x}}) \geq -11-z_A\\
+    \end{array}
+  \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Modell: Multicriteria knapsack problem (GP2)}
+ \scriptsize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+  $I$ & set of items\\
+  $O$ & set of objectives\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+  $w_i$& weight of item~$i\in I$\\
+  $u_{oi}$& value of item~$i\in I$ w.r.t. objective~$o\in O$\\
+  $c$& knapsack's capacity\\
+  $a_o$& goal value of objective~$o\in O$\\
+  $b_o$& Abweichungskosten für Ziel~$o\in O$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+  $x_i$ & binary decision variable; represents item \mbox{$i\in I$} being packed\\
+  $z_o$& deviation from goal value of objective~$o\in O$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{o\in O} b_o\cdot z_o & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} w_i\cdot x_i \leq c & & \mathrm{(I)}\\
+	     & \displaystyle\sum_{i\in I} u_{oi}\cdot x_i \geq a_o - z_o & \quad\forall o\in O & \mathrm{(II)}\\
+	     & x_i \in \{0,1\}, z_o \geq 0 & \quad\forall i\in I, o\in O & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Lexicographical ordering of solutions}
+ With a strict objective hierarchy it is possible to achieve a Lexicographical ordering of the solutions.
+ 
+ \begin{block}{Selected lexicographically ordered solutions of the example ``Lewbrandt GmbH''}
+ Let the objective hierarchy be: profit > revenue > waste water\par
+ \footnotesize
+ \centering
+ \begin{tabular}{*{5}{c}rrr}
+  \toprule
+  $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & \scriptsize profit & \scriptsize revenue & \scriptsize waste water\\
+  \midrule
+  1&	1&	0&	1&	0&	300&	615&	12,1\\
+  0&	1&	1&	1&	0&	300&	495&	11,7\\
+  1&	0&	0&	1&	1&	270&	640&	13,4\\
+  1&	1&	0&	0&	0&	250&	530&	9,7\\
+  0&	1&	1&	0&	0&	250&	410&	9,3\\
+  \bottomrule
+ \end{tabular}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Preemptive Goal Programming}
+ \textbf{Algorithmn:} Preemptive Goal Programming
+  \addtolength{\abovedisplayskip}{-2ex}
+  \addtolength{\belowdisplayskip}{-2ex}
+  \begin{enumerate}
+  \item Let $i=1$
+  \item \label{item:Label1} Solve the problem with the objective function $f_i$ of objective~$i$. Get the optimal solution $\mathbf{x}^*$ with the optimal value $f_i^*$.
+  \item if $i=n$: $\mathbf{x}^*$ is the lexicographically optimal solution. Stop.
+  \item Add the following costraint to the model: \[f_i(\mathbf{x}) = f_i^*\]
+  \item Let $i=i+1$ and go to step~\ref{item:Label1}.
+  \end{enumerate}
+  \addtolength{\abovedisplayskip}{2ex}
+  \addtolength{\belowdisplayskip}{2ex}
+\end{frame}
+
+
+

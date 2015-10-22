@@ -1,0 +1,47 @@
+\sectionframe{Multiple objective functions and Pareto optimality}
+\begin{frame}
+ \frametitle{Example: Lewbrandt GmbH}
+ Total capacity: $120\,$h\\
+ \begin{center}\footnotesize
+  \begin{tabular}{lccccc}
+  \toprule
+  \bfseries Job & \bfseries 1 & \bfseries 2 & \bfseries 3 & \bfseries 4 & \bfseries 5 \\
+  \midrule
+  Gross margin & $150\,$k€ & $100\,$k€ & $150\,$k€ & $50\,$k€ & $70\,$k€\\
+  Revenue & $340\,$k€ & $190\,$k€ & $220\,$k€ & $85\,$k€ & $215\,$k€ \\
+  Waste water & $6.2\,$t & $3.5\,$t & $5.8\,$t & $2.4\,$t & $4.8\,$t \\
+  Capacity consumption &  $65\,$h & $35\,$h & $65\,$h & $15\,$h & $25\,$h\\
+  \bottomrule
+  \end{tabular}
+ \end{center}
+ 
+ Which jobs should be accepted? \\\textrightarrow{} knapsack problem
+ 
+ \begin{block}{Problem}
+  There are three objective functions, so there is no unique optimal solution.
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Pareto optimality}
+ \begin{block}{Definition: Pareto optimality}
+  A solution is called Pareto optimal, if there is no other solution, which is better in one objective and at least as good in all other objectives. 
+ \end{block}
+ 
+ \begin{block}{Selected solutions of the example "`Lewbrandt GmbH"'}
+  \footnotesize
+ \centering
+ \begin{tabular}{*{5}{c}rrrc}
+  \toprule
+  $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & \scriptsize profit & \scriptsize revenue & \scriptsize waste water & p. o. \\
+  \midrule
+  0&	1&	0&	1&	0&	150&	275&	5.9&	yes\\
+  \alert{0}&	\alert{1}&	\alert{0}&	\alert{1}&	\alert{1}&	\alert{220}&	\alert{490}&	\alert{10,7}&	\alert{no}\\
+  1&	1&	0&	0&	0&	250&	530&	9.7&	yes\\
+  1&	1&	0&	1&	0&	300&	615&	12.1&	yes\\
+  \bottomrule
+ \end{tabular}
+ \end{block}
+
+\end{frame}
+
