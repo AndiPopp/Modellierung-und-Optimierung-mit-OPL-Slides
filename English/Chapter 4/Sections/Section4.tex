@@ -1,0 +1,55 @@
+\sectionframe{OPL: conditional operators}
+\begin{frame}
+ \frametitle{Conditional operators}
+ Using a colon, we can apply conditions to iteration indexes, which have to be fulfilled for an index to be incorporated by the operator:
+ \begin{center}\ttfamily
+  sum(\textsf{\textsl{iteration index}} in \textsf{\textsl{index set}} : \textsf{\textsl{condition}})
+ \end{center}
+ resp. 
+ \begin{center}\ttfamily
+  forall(\textsf{\textsl{iteration index}} in \textsf{\textsl{index set}} : \textsf{\textsl{condition}})
+ \end{center}
+ Conditions are logical expressions (not boolean decision variables!)
+\end{frame}
+
+\begin{frame}
+ \frametitle{Construtction of conditions}
+ \begin{block}{Literals for logical values}
+  \texttt{true}, \texttt{false}
+ \end{block}
+ \begin{block}{Comparison operators for logical values}
+  \centering\ttfamily
+  \begin{tabular}{lcccccc}
+    \toprule
+    \textrm{math. notation} & $=$ & $\neq$ & $\leq$ & $<$ & $\geq$ & $>$ \\
+    \midrule
+    \textrm{OPL Syntax} & == & != & <= & < & >= & >\\
+    \bottomrule
+  \end{tabular}
+ \end{block}
+ \begin{block}{Logical operators for logical values}
+  \centering\ttfamily
+  \begin{tabular}{lcccc}
+    \toprule
+    \textrm{math. notation} & $\neg$ & $\wedge$ & $\vee$ & $\veebar$\\
+    \midrule
+    \textrm{OPL syntax} & ! & \&\& & || & != \\
+    \bottomrule
+  \end{tabular}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Application of tuple data type (Alternative~2)}
+ Vertices and Edges shall be defined as above.
+ 
+ \begin{block}{Application example}
+  $\displaystyle\sum_{(r, t)\in E} x_{rt} = 1  \qquad\forall t\in T$\\
+  \begin{center}
+   \structure{\textdownarrow{} OPL \textdownarrow{}}
+  \end{center}
+  {\ttfamily forall(\alert{t} in T)\\
+  \quad sum(e in E : e.task == \alert{t})(x[e]) == 1;}
+ \end{block}
+\end{frame}
+

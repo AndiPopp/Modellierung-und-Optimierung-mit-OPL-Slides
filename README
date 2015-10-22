@@ -1,1 +1,5 @@
 This is a free set of slides for the text book "Modellierung and Optimierung with OPL"
+
+The slides have been created with the LaTeX-Package beamer in pdflatex. They are divided into German and English versions, which are again devided by chapters. Each chapter can be compiled seperatly. 
+
+Figures are made using LibreOffice draw and exported into pdfs. The pdfs contain the original odg file and can be easily modified.

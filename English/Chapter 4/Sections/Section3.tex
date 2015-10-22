@@ -1,0 +1,111 @@
+\sectionframe{OPL: custom tupels as data structure}
+\begin{frame}
+ \frametitle{Example: Relieve Doctors}
+ \begin{figure}
+  \includegraphics<1>[width=\linewidth,page=1]{Bilder/Graph_Zuordnungsproblem}
+  \includegraphics<2>[width=\linewidth,page=2]{Bilder/Graph_Zuordnungsproblem}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Assignment problem}
+ \small
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+     $R$ & set of ressources\\
+     $T$ & set of tasks\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+     $E$ & set of egdes in the assignment graph\\
+     $c_{rt}$ & cost of each edge~$(r, t)\in E$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+     $x_{rt}$ & binary variable representing the choice of edge~$(r, t)\in E$ \\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \displaystyle\sum_{(r, t)\in E}  c_{rt}\cdot x_{rt} & & \\[3ex]
+	s.t. & \displaystyle\sum_{(r, t)\in E} x_{rt} = 1 & \quad\forall t\in T & \mathrm{(I)}\\
+	      & \displaystyle\sum_{(r, t)\in E} x_{rt} \leq 1 & \quad\forall r\in R & \mathrm{(II)}\\
+	      & x_{rt} \in \{0, 1\} & \quad\forall (r, t)\in E & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Representation of missing edges in OPL}
+ \begin{itemize}
+  \item Assign prohibitively high costs to missing edges. Disadvantages:
+  \begin{itemize}
+   \item unnecessary binary variables
+   \item susceptible to machine rounding errors
+   \item only applicable to weighted graphs (if at all)
+  \end{itemize}
+  \item Adjacency matrix. Disadvantages:
+  \begin{itemize}
+   \item unnecessary binary variables
+  \end{itemize}
+  \item Adjacency lists. Disadvantages:
+  \begin{itemize}
+   \item \texttt{x[r in R][t in A[r]]} \textrightarrow{} Error:
+    "`Variable indexer size not allowed for a generic array."'
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\shorthandoff{"}
+\begin{frame}
+ \frametitle{Tuple data structure}
+ Tuples are custom data structurs, consisting of elements of other data types.
+ 
+ \begin{block}{Definition of a new tuple data type}
+ \small\ttfamily
+  tuple \textit{Name\_of\_the\_tuple\_data\_type} \{\\
+  \ \ \textit{Data\_type\_of\_1st\_Element} \textit{Name\_of\_1st\_Element};\\
+  \ \ \textit{Data\_type\_of\_2nd\_Element} \textit{Name\_of\_2nd\_Element};\\
+  \ \ ...\\
+  \}
+  \end{block}
+  
+  \begin{block}{Example: Edges as tuple data type}
+   \ttfamily\small
+   \{string\} V = \{"A", "B", "C"\};\\
+   tupel edge \{\\
+   \ \ string start;\\
+   \ \ string end;\\
+  \};
+  \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Tuple literals and elements}
+ In a tuple data type's literals the elements are sorted into angle brackets.
+ \begin{block}{Example: Definition of an edge as literal}
+  \ttfamily
+    edge e = <"A", "B">;
+ \end{block}
+ 
+ Single elements of a tuple data type are adressed with a dot.
+ \begin{block}{Example: getting the starting vertex of an edge}
+  {\ttfamily e.start} \qquad\textrightarrow{}\qquad {\ttfamily "A"}
+ \end{block}
+\end{frame}
+\shorthandon{"}
+
+\begin{frame}
+ \frametitle{Application of tuple data type (Alternative~1)}
+ Vertices and Edges shall be defined as above.
+ 
+ \begin{block}{Application example}
+  $\displaystyle\sum_{(r, t)\in E} x_{rt} = 1  \qquad\forall t\in T$\\
+  \begin{center}
+   \structure{\textdownarrow{} OPL \textdownarrow{}}
+  \end{center}
+  {\ttfamily forall(\alert{t} in T)\\
+  \quad sum(<r,\alert{t}> in E)(x[<r,t>]) == 1;}
+ \end{block}
+\end{frame}
+
+

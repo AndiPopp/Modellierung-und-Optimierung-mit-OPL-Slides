@@ -1,0 +1,143 @@
+\sectionframe{Representation of graphs in OPL}
+\begin{frame}
+ \frametitle{Sequence dependet production problem}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+     $I$ & set of products\\
+     $R$ & set of ressources\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+     $p_i$ & price of product~$i\in I$\\
+     $c_r$ & capacity of ressource~$r\in R$\\
+     $v_{ri}$ & capacity consumption of product~$i\in I$ on ressource~$r\in R$\\
+     $E$ & set of edges in the sequence graph\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+     $x_i$ & production quantity of product~$i\in I$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Modellbeschreibung}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\max & \displaystyle\sum_{i\in I} p_i\cdot x_i & & \\[3ex]
+	s.t. & \displaystyle\sum_{i\in I} v_{ri}\cdot x_i \leq c_i & \quad\forall r\in R & \mathrm{(I)}\\
+	      & x_i \geq\displaystyle\sum_{(i, j)\in E}x_j &\quad\forall i\in I & \mathrm{(II)}\\
+	      & x_i \geq 0 & \quad\forall i\in I & \\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Graphs in optimization problems}
+  \begin{block}{Application example for graphs}
+    \[
+      x_i \geq \sum_{\alert{(i, j) \in E}}x_j\qquad\forall i\in I  
+    \]
+  \end{block}
+  Question: How can the graph be represented in the optimization model?
+\end{frame}
+
+\begin{frame}
+ \frametitle{The adjacency matrix}
+ \begin{block}{Definition: adjacency matrix}
+  The adjacency matrix of a grap $G=(V, E)$ with $V=\{V_1, \ldots, V_N\}$ is a quadratic $N\times N$-Matrix $(a_{ij})$, which holds:
+  \begin{equation}
+    a_{ij} = \left\{\begin{array}{ll}
+		      1 & \text{Edge } V_i\rightarrow V_j \text{ exists}\\
+		      0 & \text{otherwise}
+		    \end{array}\right.
+   \end{equation}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adjacency matrix in the example}
+  \begin{center}
+    \includegraphics<1>[width=.4\linewidth,page=1]{Bilder/Graph_Lewig_Adelburg}\\[2ex]
+    \structure{\textdownarrow{} Translation into adjacency matrix \textdownarrow{}}\\[2ex]
+    $
+    \bordermatrix{
+	& I_1 & I_2 & J_1 & J_2 & J_3 & J_4 \cr
+    I_1 & 0   & 0   & 1   & 1   & 0   & 0 \cr
+    I_2 & 0   & 0   & 0   & 0   & 1   & 0 \cr
+    J_1 & 0   & 0   & 0   & 0   & 0   & 0 \cr
+    J_2 & 0   & 0   & 0   & 0   & 0   & 1 \cr
+    J_3 & 0   & 0   & 0   & 0   & 0   & 0 \cr
+    J_4 & 0   & 0   & 0   & 0   & 0   & 0 \cr
+    }
+    $
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Application of adjacency matrixes in optimization problems}
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+{string} I = ...;
+int a [I,I] = [
+  [0, 0, 1, 1, 0, 0],
+  [0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1],
+  [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0],
+];
+\end{lstlisting}
+\vspace{-\baselineskip}
+\[
+  x_i \geq \sum_{\alert{(i, j) \in E}}x_j\qquad\forall i\in I  
+\]
+\begin{center}
+ \structure{\textdownarrow{} OPL \textdownarrow{}}
+\end{center}
+\begin{lstlisting}[numbers=none]
+forall(i in I)
+  x[i] >= sum (j in I)(a[i,j]*x[j]);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adjacency lists}
+ \begin{block}{Definition: adjacency lists}
+  The adjacency list of a vertex~$v\in V$ of a graph $G=(V, E)$ is a set $A_v\subseteq V$, which contains all successors of~$v$.
+ \end{block}
+ \begin{block}{Adjacency lists in the example}
+  \includegraphics<1>[width=.4\linewidth,page=1]{Bilder/Graph_Lewig_Adelburg}\quad
+  \raisebox{6ex}{
+    \begin{minipage}{.5\textwidth}
+    \begin{tabular}{ll}
+      $A_{I_1} = \{J_1, J_2\}$  & $A_{I_2} = \{J_3\}$\\
+      $A_{J_1} = \{\}$ & $A_{J_2} = \{J_4\}$\\
+      $A_{J_3} = \{\}$ & $A_{J_4} = \{\}$
+    \end{tabular}
+    \end{minipage}}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Application of adjacency lists in optimization problems}
+ \bigskip
+\begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
+{string} I = ...;
+{string} A[I] = [
+  {"J1", "J2"},
+  {"J3"},
+  {},
+  {"J4"},
+  {},
+  {}
+];
+\end{lstlisting}
+\vspace{-\baselineskip}
+\[
+  x_i \geq \sum_{\alert{(i, j) \in E}}x_j\qquad\forall i\in I  
+\]
+\begin{center}
+ \structure{\textdownarrow{} OPL \textdownarrow{}}
+\end{center}
+\begin{lstlisting}[numbers=none]
+forall (i in I)
+  x[i] >= sum(j in A[i])(x[j]);
+\end{lstlisting}
+\end{frame}
+
