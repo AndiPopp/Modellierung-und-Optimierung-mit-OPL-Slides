@@ -3,17 +3,17 @@
  \frametitle{Decision expressions}
  Objective function of the Wagner-Whitin-problem:
 \begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
-// Zielfunktion
+// objective function
 minimize sum(t in T)(s[t]*y[t] + h[t]* i[t]);
 \end{lstlisting}
 
 Structuring with decision expressions:
 \begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
-// Entscheidungsausdrücke
+// decision expressions
 dexpr float setupCost = sum(t in T)(s[t]*y[t]);
 dexpr float inventoryCost = sum(t in T)(h[t]*i[t]);
 
-// Zielfunktion
+// objective function
 minimize setupCost + inventoryCost;
 \end{lstlisting}
 \end{frame}
@@ -22,17 +22,17 @@ minimize setupCost + inventoryCost;
  \frametitle{Arrays of decision expressions}
  Objective function of the Wagner-Whitin-problem:
 \begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
-// Zielfunktion
+// objective function
 minimize sum(t in T)(s[t]*y[t] + h[t]* i[t]);
 \end{lstlisting}
 
 Structuring with decision expressions:
 \begin{lstlisting}[numbers=none,basicstyle=\scriptsize\ttfamily]
-//Entscheidungsausdrücke
+//decision expressions
 dexpr float periodCost[t in T] 
  = s[t]*y[t] + h[t]*i[t];
 
- // Zielfunktion
+ // objective function
 minimize sum (t in T)(periodCost[t]);
 \end{lstlisting}
 \end{frame}
