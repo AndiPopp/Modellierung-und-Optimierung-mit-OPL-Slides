@@ -1,101 +1,101 @@
-\sectionframe{Datenquellen}
-\subsection{Excel-Tabellen}
+\sectionframe{Data sources}
+\subsection{Excel spreadsheets}
 \begin{frame}
- \frametitle{Aufbau einer \texttt{SheetConnection}}
- Der Objekt-Datentyp \texttt{SheetConnection} stellt Verbindungen zu Excel-Tabellen dar (nur unter MS Windows).
- \begin{block}{Erstellen einer \texttt{SheetConnection}}
+ \frametitle{Building a \texttt{SheetConnection}}
+ The object data type \texttt{SheetConnection} connects to an Excel spreadsheet (MS Windows only)
+ \begin{block}{Construction of a \texttt{SheetConnection}}
   \ttfamily
-  SheetConnection \textsf{\slshape Name}("\textsf{\slshape Pfad der Tabelle}");
+  SheetConnection \textsf{\slshape name}("\textsf{\slshape path to spreadsheet}");
  \end{block}
- \begin{block}{Mögliche Datentypen für Einlesen und Schreiben}
+ \begin{block}{Possible data types for reading and writing}
   \begin{itemize}
-   \item nulldimensionale Datentypen, d.h. einfache Variablen. Auslesen einer einzelnen Zelle.
-   \item eindimensionale Datentypen, d.h. Sets und einfache Arrays. Auslesen einer Zeile oder Spalte.
-   \item zweidimensionale Datentypen, d.h. zweidimensionale Arrays. Auslesen einer Zellenmatrix.
+   \item zero-dimensional data types, i.e. single variables. Reading data from one cell.
+   \item one-dimensional data types, i.e. sets and single arrays. Reading data from a row or column.
+   \item two-dimensional data types, i.e. double arrays. Reading data from a cell matrix.
   \end{itemize}
  \end{block}
 \end{frame}
 
 \begin{frame}
- \frametitle{Lesen und Schreiben mit absoluter Zelladressierung}
- \begin{block}{Lesen mit absoluter Zelladressierung}
+ \frametitle{Reading and writing with absolute cell adressing}
+ \begin{block}{Reading with absolute cell adressing}
   \ttfamily
-  \textsf{\slshape Variablename} from SheetRead(\textsf{\slshape SheetConnection-Name}, "\textsf{\slshape Tabellenname}!\textsf{\slshape Startzelle}:\textsf{\slshape Endzelle}")
+  \textsf{\slshape variable name} from SheetRead(\textsf{\slshape SheetConnection name}, "\textsf{\slshape table name}!\textsf{\slshape starting cells}:\textsf{\slshape ending cell}")
  \end{block}
- \begin{block}{Schreiben mit absoluter Zelladressierung}
+ \begin{block}{Writing with absolute cell adressing}
   \ttfamily
-  \textsf{\slshape Variablename} to SheetWrite(\textsf{\slshape SheetConnection-Name}, "\textsf{\slshape Tabellenname}!\textsf{\slshape Startzelle}:\textsf{\slshape Endzelle}")
+  \textsf{\slshape variable name} to SheetWrite(\textsf{\slshape SheetConnection name}, "\textsf{\slshape table name}!\textsf{\slshape starting cell}:\textsf{\slshape ending cell}")
  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
- \frametitle{In Beispiel "`Vindoo Support"'}
- \begin{block}{Excel-Tabelle für Beispiel "`Vindo Support"'}
+ \frametitle{In example ``Vindoo Support''}
+ \begin{block}{Excel spreadsheet for example ``Vindo Support''}
   \centering
   \includegraphics[width=.9\linewidth]{Bilder/CyclicStaffingData}
  \end{block}
- \begin{block}{Auszüge aus der Datendatei}
+ \begin{block}{Excerpt from the data file}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
 // SheetConnection
 SheetConnection sheet("CyclicStaffingProblem.xls");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-// Indexmengen
+// index sets
 T from SheetRead(sheet, "Data!B1:F1");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-//Parameter
+//parameters
 d from SheetRead(sheet, "Data!G2:G6");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-//Entscheidungsvariablen
+//decision variables
 x to SheetWrite(sheet, "Data!B8:F8");
 \end{lstlisting}
  \end{block}
 \end{frame}
 
 \begin{frame}
- \frametitle{Lesen und Schreiben mit Namensbereichen}
- MS Excel ermöglicht es einzelnen Zellbereichen Namen zu geben.
- \begin{block}{Lesen mit Namensbereichen}
+ \frametitle{Reading and writing with named ranges}
+ In MS Excel it is possible to name cell ranges.
+ \begin{block}{Reading with named ranges}
   \ttfamily
-  \textsf{\slshape Variablename} from SheetRead(\textsf{\slshape SheetConnection-Name}, "\textsf{\slshape Bereichsname}")
+  \textsf{\slshape variable name} from SheetRead(\textsf{\slshape SheetConnection name}, "\textsf{\slshape range name}")
  \end{block}
- \begin{block}{Schreiben mit Namensbereichen}
+ \begin{block}{Writing with named ranges}
   \ttfamily
-  \textsf{\slshape Variablename} to SheetWrite(\textsf{\slshape SheetConnection-Name}, "\textsf{\slshape Bereichsname}")
+  \textsf{\slshape variable name} to SheetWrite(\textsf{\slshape SheetConnection name}, "\textsf{\slshape range name}")
  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
- \frametitle{In Beispiel "`Vindoo Support"'}
- \begin{block}{Excel-Tabelle für Beispiel "`Vindo Support"'}
+ \frametitle{In example ``Vindoo Support''}
+ \begin{block}{Excel spreadsheet for example ``Vindo Support''}
   \begin{center}
    \includegraphics[width=.9\linewidth]{Bilder/CyclicStaffingData}
   \end{center}\vspace{-1\baselineskip}
-  Der gelbe Bereiche heiße "`\texttt{ParamA}"'
+  The yellow range is named ``\texttt{ParamA}''
  \end{block}
- \begin{block}{Auszüge aus der Datendatei}
+ \begin{block}{Excerpt from the data file}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
 // SheetConnection
 SheetConnection sheet("CyclicStaffingProblem.xls");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-//Parameter
+//parameters
 a from SheetRead(sheet, "ParamA");
 \end{lstlisting}
  \end{block}
 \end{frame}
 
-\subsection{Datenbanken}
+\subsection{Data bases}
 \begin{frame}
- \frametitle{Aufbau einer \texttt{DBConnection}}
- Der Objekt-Datentyp \texttt{DBConnection} stellt Verbindungen zu einer Datenbank dar.
- \begin{block}{Erstellen einer \texttt{DBConnection}}
+ \frametitle{Building a \texttt{DBConnection}}
+ The object data type \texttt{DBConnection} connects to a data base.
+ \begin{block}{Construction of a \texttt{DBConnection}}
   \ttfamily
-  DBConnection \textsf{\slshape Name}("\textsf{\slshape Schnittstelle}", "\textsf{\slshape Verbindungs-String}");
+  DBConnection \textsf{\slshape name}("\textsf{\slshape interface}", "\textsf{\slshape connection string}");
  \end{block}
- \begin{block}{Unterstützte Datenbank-Schnittstellen}
+ \begin{block}{Supported data base interfaces}
   \begin{itemize}
    \item DB2
    \item Oracle (Version 10 und 11)
@@ -106,7 +106,7 @@ a from SheetRead(sheet, "ParamA");
 \end{frame}
 
 \begin{frame}
- \frametitle{Beispiel-Datenbank: \texttt{CyclicStaffingProblem}}
+ \frametitle{example data base: \texttt{CyclicStaffingProblem}}
  \begin{table}[htbp]\tiny
  \begin{tabularx}{\linewidth}{XX}
   \begin{minipage}{\linewidth}
@@ -149,7 +149,7 @@ a from SheetRead(sheet, "ParamA");
       \arrayrulecolor{black}
       \bottomrule
      \end{tabular}
-    \caption{Tabelle \texttt{A}}
+    \caption{table \texttt{A}}
     \end{subtable}
   \end{minipage}
   &
@@ -167,7 +167,7 @@ a from SheetRead(sheet, "ParamA");
       5 & 7 \\
       \bottomrule
      \end{tabular}
-    \caption{Tabelle \texttt{T}}
+    \caption{table \texttt{T}}
     \end{subtable}
     \bigskip\bigskip
     
@@ -184,7 +184,7 @@ a from SheetRead(sheet, "ParamA");
       5 & 52 \\
       \bottomrule
      \end{tabular}
-    \caption{Tabelle \texttt{S}}
+    \caption{table \texttt{S}}
     \end{subtable}
   \end{minipage}
  \end{tabularx}
@@ -192,20 +192,20 @@ a from SheetRead(sheet, "ParamA");
 \end{frame}
 
 \begin{frame}[fragile]
- \frametitle{Einlesen von Array-Daten}
- Die Beispiel-Datenbank \texttt{CyclicStaffingProblem} sei über eine ODBC-Schnittstelle verbunden. Der User "`\texttt{user}"' mit dem Passwort "`\texttt{password}"' hat die nötige Zugangsberechtigung.
- \begin{block}{Auszüge aus der Datendatei}
+ \frametitle{Reading array data}
+ The example data base \texttt{CyclicStaffingProblem} shall be connected via an ODBC interface. The user ``\texttt{user}'' with the password ``\texttt{password}'' has the necessary rights to access the data base.
+ \begin{block}{Excerpt from the data file}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
 // DBConnection
 DBConnection 
   db("odbc", "CyclicStaffingProblem/user/password");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-// Indexmengen
+// index sets
 T from DBRead (db, "SELECT ind from T");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-// Parameter
+// parameters
 c from DBRead(db, "SELECT ind,c from S");
 a from DBRead(db, "SELECT t,s,a from A");
 \end{lstlisting}
@@ -213,8 +213,8 @@ a from DBRead(db, "SELECT t,s,a from A");
 \end{frame}
 
 \begin{frame}[fragile]
- \frametitle{Einlesen und Schreiben von Tupel-Daten}
- \begin{block}{Auszüge aus der Modelldatei}
+ \frametitle{Reading and writing of tuple data}
+ \begin{block}{Excerpt from the model file}
 \begin{lstlisting}[language=opl,numbers=none,basicstyle=\ttfamily\scriptsize]
 //Tuple
 tuple shift{
@@ -231,13 +231,13 @@ tuple result{<
 {result} r = {<x[s],s.ind>|s in S};
 \end{lstlisting}
  \end{block}\vspace{-2\baselineskip}
- \begin{block}{Auszüge aus der Datendatei}
+ \begin{block}{Excerpt from the data file}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-//Indexmengen
+//index sets
 S from DBRead(db, "SELECT ind,c from S");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
-//Entscheidungsvariablen
+//decision variables
 r to DBUpdate(db, "UPDATE S SET x=? WHERE ind=?");
 \end{lstlisting}
  \end{block}

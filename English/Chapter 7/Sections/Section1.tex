@@ -1,0 +1,44 @@
+\begin{frame}
+ \frametitle{Example: Vindoo Support}
+ \begin{figure}
+  \includegraphics[width=\linewidth]{Bilder/Vindoo}
+ \end{figure}
+ {\footnotesize(cf. Pinedo: Planning and Scheduling in Manufacturing and Services)}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Cyclic staffing problem}
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{index sets}:}\\
+     $T$ & set of time slots\\
+     $S$ & set of shift patterns\\
+  \multicolumn{2}{l}{\textbf{parameters}:}\\
+     $c_s$ & cost per employee in shift pattern~$s\in S$\\
+     $d_t$ & requirement of employees in shift pattern~$t\in T$\\
+     $a_{ts}$ & Availability of employees in shift pattern~$s\in S$ in time slot~$t\in T$\\
+  \multicolumn{2}{l}{\textbf{decision variables}:}\\
+     $x_s$ & deployed employees in shift pattern~$s\in S$\\[1ex]
+  \multicolumn{2}{l}{\textbf{model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \multicolumn{3}{l}{
+		  \displaystyle\sum_{s\in S}c_s\cdot x_s
+		}\\[3ex]
+	s.t. & \displaystyle\sum_{s\in S} a_{ts}\cdot x_s \geq d_t & \quad\forall t\in T  & \mathrm{(I)}\\[.8ex]
+	      & x_s \in\mathbb{Z}_0^+ & \quad\forall s\in S &\\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+\sectionframe[Optimization routine in OPL]{Optimization routine in OPL}
+\begin{frame}
+ \frametitle{Optimization routine in OPL}
+ \begin{figure}
+   \centering
+   \includegraphics[width=\linewidth]{Bilder/OPL-Ablauf}
+ \end{figure}
+\end{frame}
+

@@ -1,0 +1,212 @@
+\sectionframe{OPL in programming sequences}
+\begin{frame}
+ \frametitle{Example: cyclic staffing problem}
+ \begin{block}{Algorithmic solutions for the cyclic staffing problem}\footnotesize
+  \begin{enumerate}
+   \item Let $P_1$ be the LP relaxation of the cylic staffing problem. Solve $P_1$, if solution is integer end, otherwise go to 2.
+   \item  \[\sum_{s\in S}x_s = \left\lfloor\sum_{s\in S}x^*_s\right\rfloor\] to $P_1$ to get $P_2$. If $P_2$ has a solution end, otherwise go to 3.
+   \item Add the constraint\[\sum_{s\in S}x_s = \left\lceil\sum_{s\in S}x^*_s\right\rceil\] to $P_1$ to get $P_3$. An optimal solution of $P_3$ is always an optimal solution for the cyclic staffing problem.
+  \end{enumerate}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Integrating OPL/CPLEX in programming sequences}
+ \footnotesize
+ \begin{block}{Interfaces}
+  \begin{itemize}
+    \item command line applications, especially \texttt{oplrun}
+    \item ILOG Concert-API
+    \item CPLEX Callable Library
+    \item CPLEX-Interfaces
+    \item ILOG Script
+  \end{itemize}
+ \end{block}
+ \pause
+ \begin{block}{Selection of applications}
+  \begin{itemize}
+   \item automated construction and solution of model instances
+   \item reading values for decision variables after solution
+   \item adding automatically generated data to a model instance
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Preparations in the cyclic staffing problem example}
+ Add the following constraints:
+ \begin{gather*}
+  \sum_{s\in S}x_s \leq ub\label{eq:CyclicStaffingUB}\\
+  \sum_{s\in S}x_s \geq lb\label{eq:CyclicStaffingLB}
+ \end{gather*}
+ 
+ If both bounds have the same value, the effective result is:
+ \[
+  \sum_{s\in S}x_s = ub = lb
+ \]
+\end{frame}
+
+\subsection{Command line with data sources}
+\begin{frame}
+ \frametitle{Advantages and disadvantages of the command line application}
+ \footnotesize
+ \begin{block}{Advantages}
+  \begin{itemize}
+   \item useable with any programming language, which supports command line applications
+   \item quite versatile
+   \item well suited for academic research and commercial prototypes
+  \end{itemize}
+ \end{block}
+ \pause
+ \begin{block}{Disadvantages}
+  \begin{itemize}
+   \item has to be combined with given data source interfaces or data input and output has to be coded seperately
+   \item susceptible to error in platform configuration
+   \item not well suited for productive systems
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Example: VBA}
+ \begin{block}{Listings excerpt: command invocation}
+  \begin{lstlisting}[language={[Visual]Basic},showstringspaces=false,numbers=none,basictype=\scriptsize\ttfamily]
+'Solve P1
+Shell ("oplrun " & modPath & " " & datPath)
+  \end{lstlisting}
+ \end{block}
+ \begin{block}{Listings excerpt: Workaround for empty solution space}
+    \begin{lstlisting}[language={[Visual]Basic},showstringspaces=false]
+'Solution not integer
+'prepare step 2
+dataSheet.Range("Obj").Value = "n"
+  \end{lstlisting}
+ \end{block}
+\end{frame}
+
+
+\subsection{The Concert-API, example: Java}
+\begin{frame}
+ \frametitle{Class packages}
+ \begin{description}
+  \item[ilog.concert] classes providing interfaces to ILOG Concert
+  \item[ilog.cplex] classes providing interfaces to ILOG CPLEX
+  \item[ilog.cp] classes providing interfaces to ILOG CP Optimizer
+  \item[ilog.opl] classes providing interfaces to OPL
+ \end{description}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Important classes}
+ \begin{description}
+  \item[IloOplFactory] the central class for constructing other OPL objects
+  \item[IloOplModelSource] a model file in the file system
+  \item[IloOplErrorHandler] pipeline for output of OPL errors and warnings (standard: System.out)
+  \item[IloOplModelDefintion] internal representation of the model 
+  \item[IloCplex] represents and instance of the CPLEX solver
+  \item[IloOplModel] a problem instance
+  \item[IloOplDataSource] data source for a model instance
+ \end{description}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Instantiating and solving models}
+ \begin{block}{Example: Cyclic-Staffing-Problem}
+\begin{lstlisting}[language=java,numbers=none,basicstyle=\tiny\ttfamily]
+IloOplFactory oplF = new IloOplFactory();
+
+IloOplModelSource modelSource =
+  oplF.createOplModelSource("CyclicStaffingProblem.mod");
+
+IloOplErrorHandler err = oplF.createOplErrorHandler();
+IloOplModelDefinition def = oplF.createOplModelDefinition(
+  modelSource, oplF.createOplSettings(err));
+
+IloCplex cplex = oplF.createCplex();
+
+IloOplModel opl = oplF.createOplModel(def, cplex);
+
+IloOplDataSource dataSource =
+ oplF.createOplDataSource("CyclicStaffingProblem.dat");
+opl.addDataSource(dataSource);
+
+opl.generate();
+
+opl.getCplex().solve();
+
+opl.printSolution(System.out);
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Accesing model elements}
+ \begin{itemize}
+  \item access with class \structure{\texttt{IloOplElement}} and method \structure{\texttt{getElement(\textsf{String s})}}.
+  \item data type translation with \structure{\texttt{as}}-methods
+ \end{itemize}
+ \begin{table}
+ \centering\scriptsize
+ \begin{tabular}{*{3}{>{\ttfamily}l}}
+  \toprule
+  \sffamily\bfseries OPL data type & \sffamily\bfseries Concert data type keyword & \sffamily\bfseries Java data type\\
+  \midrule
+  %\multicolumn{3}{c}{\cellcolor{gray!10}\footnotesize Primititve Datentypen}\\
+  int & {\texttt{Int}} & int\\
+  float & {\texttt{Num}} & double\\
+  string & {\texttt{Symbol}} & String\\
+  \midrule
+  %\multicolumn{3}{c}{\cellcolor{gray!10}\footnotesize Abgeleitete Datentypen}\\
+  \textrm{Set} & \texttt{Set} & \\
+  \textrm{Array} & {\texttt{Map}} & \\
+  tuple & {\texttt{Tuple}} & \\
+  range & \texttt{Range} & \\
+  dvar & {\texttt{Var}} & \\
+  dexpr & {\texttt{Expr}} & \\
+  \bottomrule
+ \end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Define custom data sources}
+ \begin{itemize}
+  \item abstract class \structure{\texttt{IloCustomOplDataSource}}
+  \item data delivery via \structure{\texttt{customRead}}
+ \end{itemize}
+ \begin{block}{Example: cyclic staffing problem}
+\begin{lstlisting}[language=java,numbers=none,basicstyle=\tiny\ttfamily]
+@Override
+public void customRead() {
+  //Initialize Datahandler object
+  IloOplDataHandler handler = getDataHandler();
+
+  //deliver ub
+  handler.startElement("ub");
+  handler.addIntItem(this.ub);
+  handler.endElement();
+
+  //deliver lb
+  handler.startElement("lb");
+  handler.addIntItem(this.lb);
+  handler.endElement();
+}
+\end{lstlisting}
+ \end{block}
+\end{frame}
+
+\subsection{ILOG Script}
+\begin{frame}
+ \frametitle{ILOG Script}
+ \begin{itemize}
+  \item ILOG Script is an extension of JavaScript
+  \item based on Concert
+  \item Scripts are written directly into to the model file
+  \item \structure{execute} blocks can be used in pre- and postprocessing
+  \begin{itemize}
+   \item simplified syntax
+   \item OPL variables can be used like script variables
+  \end{itemize}
+  \item The \structure{main} block serves as procedure control. Here we can create and and solve problem instances.
+ \end{itemize}
+\end{frame}

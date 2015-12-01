@@ -72,7 +72,7 @@
  \begin{block}{Quelltextausschnitt: Befehlsaufruf}
   \begin{lstlisting}[language={[Visual]Basic},showstringspaces=false,numbers=none,basictype=\scriptsize\ttfamily]
 'Löse P1
-Shell ("oplrun" & modPath & " " & datPath)
+Shell ("oplrun " & modPath & " " & datPath)
   \end{lstlisting}
  \end{block}
  \begin{block}{Quelltextausschnitt: Workaround für leeren Lösungsraum}
@@ -142,7 +142,7 @@ opl.printSolution(System.out);
 \begin{frame}
  \frametitle{Zugriff auf Modellelemente}
  \begin{itemize}
-  \item Zugriff auf mittels Klasse \structure{\texttt{IloOplElement}} und Methode \structure{\texttt{getElement(\textsf{String s})}}.
+  \item Zugriff mittels Klasse \structure{\texttt{IloOplElement}} und Methode \structure{\texttt{getElement(\textsf{String s})}}.
   \item Datentypenübersetzung mittels \structure{\texttt{as}}-Methoden
  \end{itemize}
  \begin{table}
