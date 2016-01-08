@@ -108,7 +108,7 @@
   Goal values: $a_G=220$, $a_U=480$, $a_A=-11$\par
   \begin{equation*}
     \begin{array}{rl}
-      \max & |z_G|+|z_U|+|z_A|\\[1ex]
+      \min & |z_G|+|z_U|+|z_A|\\[1ex]
       s.t. & f_G(\mathbf{\overline{x}}) = 220+z_G\\
 	   & f_U(\mathbf{\overline{x}}) = 480+z_U\\
 	   & f_A(\mathbf{\overline{x}}) = -11+z_A\\
@@ -155,7 +155,7 @@
  \begin{block}{Goal programming in example ``Lewbrandt GmbH''}
   \begin{equation*}
     \begin{array}{rl}
-      \max & w_G\cdot z_G + w_U\cdot z_U + w_A\cdot z_A\\[1ex]
+      \min & w_G\cdot z_G + w_U\cdot z_U + w_A\cdot z_A\\[1ex]
       s.t. & f_G(\mathbf{\overline{x}}) \geq 220-z_G\\
 	   & f_U(\mathbf{\overline{x}}) \geq 480-z_U\\
 	   & f_A(\mathbf{\overline{x}}) \geq -11-z_A\\
