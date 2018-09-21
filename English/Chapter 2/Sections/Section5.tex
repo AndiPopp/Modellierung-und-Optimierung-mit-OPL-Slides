@@ -9,8 +9,8 @@
  \end{block}
  \begin{block}{Classification by time of occurence}
   \begin{description}
-   \item[compiler error] occur during the translation of the problem for the solver. Will be recognized by the IDE.
-   \item[runtime error] occur during solver runtime. Will not be recognized by the IDE but displayed after a solution run.
+   \item[compiler errors] occur during the translation of the problem for the solver. Will be recognized by the IDE.
+   \item[runtime errors] occur during solver runtime. Will not be recognized by the IDE but displayed after a solution run.
   \end{description}
  \end{block}
 \end{frame}
@@ -18,21 +18,21 @@
 \begin{frame}
  \frametitle{Common error messages during first tries}
  \begin{itemize}
-  \item \texttt{syntax errpor, unexpected ...} (compiler error)
+  \item \texttt{syntax error, unexpected ...} (compiler error)
   \begin{itemize}
    \item Compiler does not understand the command after "`unexpected"' here
    \item missing semi-colon?
   \end{itemize}
-  \item \texttt{syntax errpor, unexpected =} (compiler error)
+  \item \texttt{syntax error, unexpected =} (compiler error)
   \begin{itemize}
    \item special case of above
    \item often mix-up of the assignment operator~\texttt{=} and the comparison operator~\texttt{==}
   \end{itemize}
-  \item \texttt{The type ... cannot be used for ...} (Compilerfehler)
+  \item \texttt{The type ... cannot be used for ...} (compiler error)
   \begin{itemize}
    \item data type mix-up
   \end{itemize}
-  \item \texttt{index out of bound for array ...} (Laufzeitfehler)
+  \item \texttt{index out of bound for array ...} (runtime error)
   \begin{itemize}
    \item tried to access an array with a wrong index value
   \end{itemize}
