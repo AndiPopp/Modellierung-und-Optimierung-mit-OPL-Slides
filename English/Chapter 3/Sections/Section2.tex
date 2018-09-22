@@ -41,9 +41,9 @@
  \frametitle{The Big-M-Method}
  Let $\mathbf{\overline{x}}$ be the vector of decision variables and $f$ be a linear function. The constraint
   \[
-  f(\mathbf{\overline{x}}) \leq b\qquad\text{bzw.}\qquad f(\mathbf{\overline{x}}) \geq b
+  f(\mathbf{\overline{x}}) \leq b\qquad\text{resp.}\qquad f(\mathbf{\overline{x}}) \geq b
   \]
-  shall only be constraining if a decision represented by the binary variable~$y$ has been made.
+  shall only be constraining if a decision represented by the binary variable~$y$ assuming the value 0 has been made.
 
   \begin{block}{Decision dependent constraint}
   Let $M$ be a sufficiently big number.\\
@@ -59,7 +59,7 @@
  $i_t = i_{t-1}+x_t-d_t \qquad\forall t\in T \qquad \mathrm{(I)}$
  \end{block}
  \begin{minipage}[t][15ex]{\linewidth}
- \only<1>{\begin{block}{Implementation try 1}\ttfamily\scriptsize
+ \only<1>{\begin{block}{Implementation attempt 1}\ttfamily\scriptsize
  \{string\} T = \{"KW14", "KW15", "KW16", "KW17"\};\\
  dvar float+ i[T];\\
  \mbox{}\quad forall(t in T) i[t] == i[\alert{t-1}] + x[t] - d[t];
@@ -67,7 +67,7 @@
   \includegraphics[height=2ex]{Bilder/error-icon}{} Operator for string - int not available.
  \end{flushleft}
  \end{block}}
- \only<2>{\begin{block}{Implementation try 2}\ttfamily\scriptsize
+ \only<2>{\begin{block}{Implementation attempt 2}\ttfamily\scriptsize
  \{int\} T = \{14, 15, 16, 17\};\\
  dvar float+ i[T];\\
  \mbox{}\quad forall(t in T) i[t] == i[\alert{t-1}] + x[t] - d[t];
@@ -75,13 +75,13 @@
   \includegraphics[height=2ex]{Bilder/error-icon}{} Index out of bound for array "{}i"{}: 13.
  \end{flushleft}
  \end{block}}
- \only<3>{\begin{block}{Implementation try 3}\ttfamily\scriptsize
+ \only<3>{\begin{block}{Implementation attempt 3}\ttfamily\scriptsize
  \{int\} T = \{14, 15, 16, 17\};\\
  \{int\} T0 = \{13, 14, 15, 16, 17\};\\
  dvar float+ i[T0];\\
  \mbox{}\quad forall(t in T) i[t] == i[t-1] + x[t] - d[t];
  \end{block}}
- \only<4>{\begin{block}{Implementation try 4}\ttfamily\scriptsize
+ \only<4>{\begin{block}{Implementation attempt 4}\ttfamily\scriptsize
  int Tmin = 14; \\
  int Tmax = 17;\\
  range T = Tmin..Tmax; \\
@@ -94,7 +94,7 @@
 \subsection{Disjunctive Constraints}
 \begin{frame}
  \frametitle{Disjunctive Constraints I}
- A model shall have to following constraints:
+ A model shall have the following constraints:
  \begin{align*}
   &f(\mathbf{\overline{x}}) \leq b\\
   &g(\mathbf{\overline{x}}) \leq d
