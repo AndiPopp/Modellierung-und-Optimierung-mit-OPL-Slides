@@ -41,7 +41,7 @@ SheetConnection sheet("CyclicStaffingProblem.xls");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
 // index sets
-T from SheetRead(sheet, "Data!B1:F1");
+S from SheetRead(sheet, "Data!B1:F1");
 \end{lstlisting}\vspace{-2\baselineskip}
 \begin{lstlisting}[language=opldata,numbers=none,basicstyle=\ttfamily\scriptsize]
 //parameters
@@ -98,9 +98,9 @@ a from SheetRead(sheet, "ParamA");
  \begin{block}{Supported data base interfaces}
   \begin{itemize}
    \item DB2
-   \item Oracle (Version 10 und 11)
+   \item Oracle (versions 10 and 11)
    \item OLE DB (MS SQL Server)
-   \item ODBC (u.a. für MS Access)
+   \item ODBC (i.a. for MS Access)
   \end{itemize}
  \end{block}
 \end{frame}

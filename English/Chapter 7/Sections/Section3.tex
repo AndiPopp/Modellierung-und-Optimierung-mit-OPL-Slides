@@ -4,7 +4,7 @@
  \begin{block}{Algorithmic solutions for the cyclic staffing problem}\footnotesize
   \begin{enumerate}
    \item Let $P_1$ be the LP relaxation of the cylic staffing problem. Solve $P_1$, if solution is integer end, otherwise go to 2.
-   \item  \[\sum_{s\in S}x_s = \left\lfloor\sum_{s\in S}x^*_s\right\rfloor\] to $P_1$ to get $P_2$. If $P_2$ has a solution end, otherwise go to 3.
+   \item Add the constraint \[\sum_{s\in S}x_s = \left\lfloor\sum_{s\in S}x^*_s\right\rfloor\] to $P_1$ to get $P_2$. If $P_2$ has a solution end, otherwise go to 3.
    \item Add the constraint\[\sum_{s\in S}x_s = \left\lceil\sum_{s\in S}x^*_s\right\rceil\] to $P_1$ to get $P_3$. An optimal solution of $P_3$ is always an optimal solution for the cyclic staffing problem.
   \end{enumerate}
  \end{block}
@@ -70,7 +70,7 @@
 \begin{frame}[fragile]
  \frametitle{Example: VBA}
  \begin{block}{Listings excerpt: command invocation}
-  \begin{lstlisting}[language={[Visual]Basic},showstringspaces=false,numbers=none,basictype=\scriptsize\ttfamily]
+  \begin{lstlisting}[language={[Visual]Basic},showstringspaces=false,numbers=none,basicstyle=\scriptsize\ttfamily]
 'Solve P1
 Shell ("oplrun " & modPath & " " & datPath)
   \end{lstlisting}
@@ -103,7 +103,7 @@ dataSheet.Range("Obj").Value = "n"
   \item[IloOplModelSource] a model file in the file system
   \item[IloOplErrorHandler] pipeline for output of OPL errors and warnings (standard: System.out)
   \item[IloOplModelDefintion] internal representation of the model 
-  \item[IloCplex] represents and instance of the CPLEX solver
+  \item[IloCplex] represents an instance of the CPLEX solver
   \item[IloOplModel] a problem instance
   \item[IloOplDataSource] data source for a model instance
  \end{description}
