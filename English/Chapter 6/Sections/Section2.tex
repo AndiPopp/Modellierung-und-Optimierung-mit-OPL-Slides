@@ -1,0 +1,113 @@
+\sectionframe{Chance constrainend programming}
+\begin{frame}
+ \frametitle{Example: Lewig Pattming}
+ \begin{block}{Sales prices and capacity}
+  \begin{center}\upshape
+    \begin{tabular}{lccc@{\qquad}l}
+    \toprule
+      & $I_1$ & $I_2$ & $I_3$ & capacity\\
+    \midrule 
+      $R_1$ & 3.2 & 2.4 & 2.6 & 600 \\
+      $R_2$ & 6.5 & 8.3 & 7.8 & 800 \\
+    \midrule
+      SP & 1.4 & 1.6 & 1.5 & \\
+    \bottomrule
+    \end{tabular}
+  \end{center}
+ \end{block}
+ \begin{block}{Demand estimator}
+  $\left.\begin{array}{l}
+   D_{I_1} \sim N(25, 10)\\
+   D_{I_2} \sim N(10, 5)\\
+   D_{I_3} \sim N(18, 7)
+  \end{array}\right\}$
+  \begin{minipage}[m]{.6\linewidth}
+   \raggedright
+   Probability of a stock out shall be  $<5\%$ 
+  \end{minipage}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Stochastic production problem (Alternative 1)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+     $I$ & set of products\\
+     $R$ & set of resources\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+     $v_i$ & sales price of product~$i\in I$\\
+     $c_r$ & capacity of resource~$r\in R$\\
+     $a_{ri}$ & capacity consumption of product~$i\in I$ on resource~$r\in R$ \\
+     $\alert{D_i}$ & \mbox{}\alert{demand of product~$i\in I$ (random variable)}\\
+     $\alpha$ & $\alpha$ service level\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+     $x_{i}$ & production quantity of product~$i\in I$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \multicolumn{3}{l}{
+		  \displaystyle\sum_{i\in I}v_i\cdot x_i
+		}\\[3ex]
+	s.t. & \displaystyle\sum_{r\in R} a_{ri}x_{i} \leq c_r & \quad\forall r\in R & \mathrm{(I)}\\
+	      & \alert{P\left(D_i\leq x_i\right) \geq \alpha}  & \quad\forall i\in I & \mathrm{(II)}\\%[.8ex]
+	      & x_i \geq 0 & \quad\forall i\in I &\\
+      \end{array}
+      $
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Equivalent deterministic model employing chance constrainend programming}
+ with the example of the stochastic production problem:
+ \begin{itemize}
+  \item $P(D_i\leq x_i) = \alert{F_{D_i}}(x_i)$ \quad\alert{\textsl{(distribution function)}}\medskip
+  \item $P\left(D_i\leq x_i\right) \geq \alpha \quad\Longleftrightarrow\quad x_i \geq \alert{F^{-1}_{D_i}(\alpha)}$\quad \alert{\textsl{(constant)}}
+ \end{itemize}
+ 
+ \begin{block}{Precalculated constants for the example}
+  \begin{center}
+  \begin{tabular}{lccc}
+    \toprule
+    $i$ & $I_1$ & $I_2$ & $I_3$\\
+    \midrule
+    $F^{-1}_{D_i}(0,95)$ & 41,4 & 18,2 & 29,5\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Model: Stochastic production problem (Alternative 2)}
+ \footnotesize
+ \begin{tabularx}{\linewidth}{lL}
+  \multicolumn{2}{l}{\textbf{Index sets}:}\\
+     $I$ & set of products\\
+     $R$ & set of resources\\
+  \multicolumn{2}{l}{\textbf{Parameters}:}\\
+     $v_i$ & sales price of product~$i\in I$\\
+     $c_r$ & capacity of resource~$r\in R$\\
+     $a_{ri}$ & capacity consumption of product~$i\in I$ on resource~$r\in R$ \\
+     $\alert{F^{-1}_{D_i}(\alpha)}$ & $\alpha$ quantile of demand for product~$i\in I$\\
+  \multicolumn{2}{l}{\textbf{Decision variables}:}\\
+     $x_{i}$ & production quantity of product~$i\in I$\\[1ex]
+  \multicolumn{2}{l}{\textbf{Model description}:}\\[1ex]
+  \multicolumn{2}{l}{
+      $
+      \begin{array}{rllr}
+	\min & \multicolumn{3}{l}{
+		  \displaystyle\sum_{i\in I}v_i\cdot x_i
+		}\\[3ex]
+	s.t. & \displaystyle\sum_{r\in R} a_{ri}x_{i} \leq c_r & \quad\forall r\in R & \mathrm{(I)}\\
+	      & x_i \geq F^{-1}_{D_i}(\alpha)  & \quad\forall i\in I & \mathrm{(II)}\\%[.8ex]
+	      & x_i \geq 0 & \quad\forall i\in I &\\
+      \end{array}
+      $ 
+  }\\[1ex]
+ \end{tabularx}
+\end{frame}
+
+

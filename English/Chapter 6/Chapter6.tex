@@ -1,0 +1,47 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{ae}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{blindtext}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{icomma}
+
+%Settings
+\input{../Settings.tex}
+
+% Makros
+\input{../Makros.tex}
+
+%Always load hyperref last...
+\usepackage{hyperref}
+
+
+\begin{document}
+
+\setcounter{chapter}{6}
+\author[CC-BY-SA A.~Popp]{Andreas Popp\vspace{-2\baselineskip}}
+\date[CC-BY-SA]{\begin{center}
+                 \includegraphics[width=.2\linewidth]{Icons/CCBYSAbig}
+                \end{center}
+\footnotesize These slides are licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.}
+\title[\thechapter{} Simple techniques of stochastic optimization]{\textbf{Modeling and Optimization with OPL}\newline \thechapter{} Simple techniques of stochastic optimization}
+
+\frame{\titlepage}
+
+
+\begin{frame}[squeeze]
+ \frametitle{Inhalt}\scriptsize
+  \tableofcontents
+\end{frame}
+
+\input{Sections/Section1.tex}
+\input{Sections/Section2.tex}
+
+\end{document}
