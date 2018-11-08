@@ -12,7 +12,7 @@
 \begin{frame}
  \frametitle{Primitive data types}
  \begin{description}
-  \item[\texttt{int}] (short for: \glqq Integer\grqq); an integer value with arbitrary sign. 
+  \item[\texttt{int}] short for: ``Integer'', an integer value with arbitrary sign. 
   Example literals: \texttt{\usebeamercolor[fg]{example text}0, 1, -2, -786}
   \item[\texttt{float}] floating point number with arbitrary sign.
   Example literals: \texttt{\usebeamercolor[fg]{example text}0.0, 1.0, 3.14, -7.86}
@@ -36,57 +36,57 @@
   \begin{flushleft}\ttfamily\usebeamercolor[fg]{example text}
   float Fixcosts[Locations] =\\\ [27.4, 58.3, 30.0];
   \end{flushleft}
-  Access by index, z.B.: \texttt{\usebeamercolor[fg]{example text}Fixcosts["Cottbus"]} \textrightarrow{} \texttt{\usebeamercolor[fg]{example text}30.0}
+  access by index, z.B.: \texttt{\usebeamercolor[fg]{example text}Fixcosts["Cottbus"]} \textrightarrow{} \texttt{\usebeamercolor[fg]{example text}30.0}
  \end{description}
 \end{frame}
 \shorthandon{"}
 
 \begin{frame}
- \frametitle{Abgeleitete Datentypen: Mehrfache Arrays}
+ \frametitle{Derived data types: mutiple arrays}
  \begin{itemize}
-  \item Arrays können ineinander geschachtelt werden um mehrfache Indizes abzubilden, z.B.
+  \item Array can be nested into one another to represent multiple indexes, e.g.
     \begin{flushleft}\ttfamily\usebeamercolor[fg]{example text}
-      float Entf[Standorte][Standorte] =\\ 
+      float Entf[Locations][Locations] =\\ 
       \ [[0.0, 5.05, 4.89],\\
       \ [5.05, 0.0, 1.22],\\
       \ [4.89, 1.22, 0.0]];
     \end{flushleft}
-  \item Zuordnungsregel: von links nach rechts, von außen nach innen
+  \item Mapping rule: from left to right, from outer to inner
  \end{itemize}
 \end{frame}
 
-\subsection{Operatoren}
+\subsection{Operators}
 \begin{frame}
- \frametitle{Einfache Operatoren}
+ \frametitle{Simple Operators}
  \begin{itemize}
-  \item Zuweisungsoperator \structure{\texttt{=}}
-  \item Arithmetische Operatoren
+  \item assignment operator \structure{\texttt{=}}
+  \item arithmetic operators
   \begin{description}
-   \item[\texttt{+}] Addition
-   \item[\texttt{-}] Subtraktion
-   \item[\texttt{*}] Multiplikation
-   \item[\texttt{/}] Division (selten in linearen Modellen)
+   \item[\texttt{+}] addition
+   \item[\texttt{-}] subtraction
+   \item[\texttt{*}] multiplication
+   \item[\texttt{/}] division (rare in linear models)
   \end{description}
-  \item Vergleichsoperatoren (für lineare Modelle)
+  \item comparison operator (für linear models)
   \begin{description}
-   \item[\texttt{==}] Addition
-   \item[\texttt{<=}] Addition
-   \item[\texttt{>=}] Addition
+   \item[\texttt{==}] equal
+   \item[\texttt{<=}] less or equal
+   \item[\texttt{>=}] greater or equal
   \end{description}
  \end{itemize}
 \end{frame}
 
 \begin{frame}
- \frametitle{Indizierte Operatoren}
+ \frametitle{Indexed operators}
  \begin{itemize}
-  \item Summenoperator
+  \item sum operator
   \begin{flushleft}\Large
    {\usebeamercolor[fg]{example text}$\displaystyle\sum_{\alert{i}\in \alert{I}}\ldots$} 
    \textrightarrow{} 
    {\usebeamercolor[fg]{example text} \texttt{sum(\alert{i} in \alert{I})(\textsf{...})}}
   \end{flushleft}
   \medskip
-  \item Allquantor
+  \item universal quantifier
   \begin{flushleft}\Large
    {\usebeamercolor[fg]{example text}$\displaystyle\forall {\alert{i}\in \alert{I}}$} 
    \textrightarrow{} 
